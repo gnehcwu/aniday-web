@@ -25,6 +25,11 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    color: 'rgb(65, 107, 208)',
+  },
+
+  searchIcon: {
+    color: 'rgb(65, 107, 208)',
   },
 
   iconButton: {
@@ -37,9 +42,9 @@ const SearchBar = () => {
 
   return (
     <Box className={styles.root}>
-      <Paper className={styles.search}>
+      <Paper className={styles.search} elevation={0}>
         <IconButton type="submit" className={styles.iconButton} aria-label="search">
-          <SearchIcon />
+          <SearchIcon className={styles.searchIcon} />
         </IconButton>
         <InputBase
           className={styles.input}

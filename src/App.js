@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Box, Paper } from '@material-ui/core';
+import { Container, Box } from '@material-ui/core';
 import SearchBar from './components/SearchBar';
+import Nav from './components/Nav';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -11,19 +12,28 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
 
     display: 'grid',
-    gridTemplateColumns: '300px auto',
+    gridTemplateColumns: 'max-content auto',
     rowGap: '8px',
   },
 
   navArea: {
     gridColumn: '1/2',
     background: 'rgb(245, 247, 253)',
+
+    display: 'grid',
+    gridTemplateRows: '180px auto',
   },
 
   logo: {
-    gridColumn: '1/2',
+    gridRow: '1/2',
     whiteSpace: 'nowrap',
-    // 245 247 253; 65 107 208; 222 230 253
+    display: 'grid',
+    placeContent: 'center',
+    textTransform: 'uppercase',
+  },
+
+  nav: {
+    gridRow: '2/3',
   },
 
   contentArea: {
@@ -37,31 +47,8 @@ const useStyles = makeStyles(theme => ({
     gridRow: '2/3',
   },
 
-  searchArea: {
+  searchBar: {
     gridRow: '1/2',
-    display: 'grid',
-    alignItems: 'center',
-    gridTemplateColumns: 'min-content auto',
-    columnGap: '8px',
-    padding: theme.spacing(4),
-  },
-
-  search: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    background: 'rgb(245, 247, 253)',
-
-    gridColumn: '2/3',
-  },
-
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-
-  iconButton: {
-    padding: 10,
   },
 }));
 
@@ -72,10 +59,12 @@ function App() {
     <Container maxWidth={false} className={styles.app}>
       <Box className={styles.navArea}>
         <Box className={styles.logo}>Anime Day</Box>
-        <Box className={styles.nav}>Nav Content</Box>
+        <Box className={styles.nav}>
+          <Nav />
+        </Box>
       </Box>
       <Box className={styles.contentArea}>
-        <SearchBar />
+        <SearchBar className={styles.searchBar} />
         <Box className={styles.content}>Content</Box>
       </Box>
     </Container>
