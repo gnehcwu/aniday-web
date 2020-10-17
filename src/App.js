@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Box } from '@material-ui/core';
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
+import DaySelector from './components/DaySelector';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -65,7 +66,12 @@ function App() {
       </Box>
       <Box className={styles.contentArea}>
         <SearchBar className={styles.searchBar} />
-        <Box className={styles.content}>Content</Box>
+        <Box className={styles.content}>
+          <Box>
+            <DaySelector />
+          </Box>
+          <Box>Contents</Box>
+        </Box>
       </Box>
     </Container>
   );

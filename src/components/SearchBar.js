@@ -5,16 +5,14 @@ import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    gridRow: '1/2',
     display: 'grid',
-    alignItems: 'center',
-    gridTemplateColumns: 'min-content auto',
-    columnGap: '8px',
+    placeContent: 'center',
     padding: theme.spacing(4),
   },
 
   search: {
-    padding: '2px 4px',
+    width: '640px',
+    padding: theme.spacing(0.5, 1),
     display: 'flex',
     alignItems: 'center',
     background: 'rgb(245, 247, 253)',
