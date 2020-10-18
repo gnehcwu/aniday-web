@@ -2,11 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import * as serviceWorker from './serviceWorker';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Overpass, sans-serif',
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

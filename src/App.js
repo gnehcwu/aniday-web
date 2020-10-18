@@ -4,6 +4,7 @@ import { Container, Box } from '@material-ui/core';
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
+import AnimeList from './components/AnimeList';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -70,7 +71,7 @@ function App() {
           <Box>
             <DaySelector />
           </Box>
-          <Box>Contents</Box>
+          <AnimeList />
         </Box>
       </Box>
     </Container>

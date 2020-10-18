@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography, Paper, IconButton, Button } from '@material-ui/core';
+import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
@@ -177,7 +177,7 @@ const Nav = () => {
         <Box className={styles.footerDesc}>
           <InfoIcon fontSize="small" className={styles.infoIcon} />
           Data by&nbsp;
-          <a target="_blank" href="https://github.com/AniList/ApiV2-GraphQL-Docs">
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/AniList/ApiV2-GraphQL-Docs">
             AniList
           </a>
         </Box>
