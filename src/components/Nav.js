@@ -113,6 +113,7 @@ const useStyles = makeStyles(theme => ({
   footerDesc: {
     display: 'grid',
     justifyContent: 'center',
+    alignItems: 'center',
     gridTemplateColumns: 'repeat(3, max-content)',
     padding: theme.spacing(1),
   },

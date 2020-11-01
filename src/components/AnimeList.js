@@ -9,16 +9,17 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    placeContent: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(400px, 100%), 1fr))',
     padding: theme.spacing(0, 2),
+    rowGap: `${theme.spacing(4)}px`,
+    columnGap: `${theme.spacing(3)}px`,
   },
 
   card: {
-    height: '265px',
-    width: '525px',
+    height: '210px',
     display: 'grid',
-    gridTemplateColumns: '195px auto',
+    gridTemplateColumns: '150px auto',
     overflow: 'hidden',
   },
 
@@ -38,16 +39,16 @@ const useStyles = makeStyles(theme => ({
   },
 
   cover: {
-    height: '265px',
+    height: '100%',
   },
 
   overlay: {
     position: 'absolute',
     bottom: '0',
     width: '100%',
-    background: 'rgba(0,0,0,.7)',
+    background: 'rgba(0,0,0,.6)',
     wordBreak: 'break-word',
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1),
     boxSizing: 'border-box',
   },
 
@@ -122,7 +123,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const animeList = [{ chips: ['comedy', 'drama', 'sports'] }];
+const animeList = [
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'sports'] },
+];
 
 const AnimeList = () => {
   const styles = useStyles();
@@ -131,7 +146,7 @@ const AnimeList = () => {
   return (
     <Box className={styles.root}>
       {animeList.map((anime, index) => (
-        <Paper key={index} className={styles.card} elevation={5}>
+        <Paper key={index} className={styles.card} elevation={3}>
           <Box className={styles.header}>
             <CardMedia className={styles.cover} image={cover} />
             <Box className={styles.overlay}>

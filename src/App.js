@@ -40,17 +40,26 @@ const useStyles = makeStyles(theme => ({
 
   contentArea: {
     gridColumn: '2/3',
-
-    display: 'grid',
-    gridTemplateRows: 'min-content auto',
+    position: 'relative',
+    overflowY: 'auto',
   },
 
   content: {
     gridRow: '2/3',
+    paddingBottom: theme.spacing(3),
   },
 
-  searchBar: {
+  fitlerArea: {
     gridRow: '1/2',
+    display: 'grid',
+    justifyContent: 'center',
+    rowGap: `${theme.spacing(3)}px`,
+    padding: theme.spacing(3, 3, 2, 3),
+
+    position: 'sticky',
+    top: '0',
+    background: 'rgba(255, 255,255, 0.89)',
+    zIndex: '10',
   },
 }));
 
@@ -66,11 +75,11 @@ function App() {
         </Box>
       </Box>
       <Box className={styles.contentArea}>
-        <SearchBar className={styles.searchBar} />
+        <Box className={styles.fitlerArea}>
+          <SearchBar className={styles.searchBar} />
+          <DaySelector className={styles.daySelector} />
+        </Box>
         <Box className={styles.content}>
-          <Box>
-            <DaySelector />
-          </Box>
           <AnimeList />
         </Box>
       </Box>
