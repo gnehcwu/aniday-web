@@ -1,6 +1,6 @@
 import makeStore from './makeStore';
 
-export const SETTING_ACTIONS = {
+const SETTING_ACTIONS = {
   UPDATE_THEME: 'update-theme',
   UPDATE_LANGUAGE: 'update-language',
 };
@@ -8,7 +8,7 @@ export const SETTING_ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case SETTING_ACTIONS.UPDATE_THEME:
-      return { ...state, theme: action.payload.theme };
+      return { ...state, isDarkMode: action.payload.isDarkMode };
     case SETTING_ACTIONS.UPDATE_LANGUAGE:
       return { ...state, lang: action.payload.lang };
     default:
@@ -16,9 +16,9 @@ function reducer(state, action) {
   }
 }
 
-const [SettingProvider, useSettings, useSettingDispatch] = makeStore(reducer, {
-  theme: 'dark',
+const [SettingProvider, useSetting, useSettingDispatch] = makeStore(reducer, {
+  isDarkMode: true,
   lang: 'en',
 });
 
-export { SETTING_ACTIONS, SettingProvider, useSettings, useSettingDispatch };
+export { SETTING_ACTIONS, SettingProvider, useSetting, useSettingDispatch };

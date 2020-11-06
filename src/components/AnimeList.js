@@ -86,8 +86,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: 'auto',
     marginLeft: `-${theme.spacing(2)}px`,
     width: '100%',
-    padding: theme.spacing(1, 2),
-    background: 'rgb(222, 230, 253)',
+    padding: theme.spacing(0, 0, 1.5, 2),
 
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(60px, max-content))',

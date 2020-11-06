@@ -1,10 +1,11 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Box } from '@material-ui/core';
+import React, { useMemo } from 'react';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { Container, Box, Paper } from '@material-ui/core';
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import AnimeList from './components/AnimeList';
+import { useSetting } from './states/useSettings';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -66,24 +67,42 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const styles = useStyles();
 
+  const { isDarkMode, lang } = useSetting();
+
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        typography: {
+          fontFamily:
+            'Overpass, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";',
+        },
+        palette: {
+          type: isDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [isDarkMode]
+  );
+
   return (
-    <Container maxWidth={false} className={styles.app}>
-      <Box className={styles.navArea}>
-        <Box className={styles.logo}>Anime Day</Box>
-        <Box className={styles.nav}>
-          <Nav />
+    <ThemeProvider theme={theme}>
+      <Container maxWidth={false} className={styles.app}>
+        <Box className={styles.navArea}>
+          <Box className={styles.logo}>Anime Day</Box>
+          <Box className={styles.nav}>
+            <Nav />
+          </Box>
         </Box>
-      </Box>
-      <Box className={styles.contentArea}>
-        <Box className={styles.fitlerArea}>
-          <SearchBar className={styles.searchBar} />
-          <DaySelector className={styles.daySelector} />
+        <Box className={styles.contentArea}>
+          <Paper className={styles.fitlerArea}>
+            <SearchBar className={styles.searchBar} />
+            <DaySelector className={styles.daySelector} />
+          </Paper>
+          <Box className={styles.content}>
+            <AnimeList />
+          </Box>
         </Box>
-        <Box className={styles.content}>
-          <AnimeList />
-        </Box>
-      </Box>
-    </Container>
+      </Container>
+    </ThemeProvider>
   );
 }
 

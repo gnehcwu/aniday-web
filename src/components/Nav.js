@@ -8,6 +8,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import clsx from 'clsx';
+import ThemeToggle from './ThemeToggle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -80,6 +81,7 @@ const useStyles = makeStyles(theme => ({
   navLabel: {
     gridColumn: '2/3',
     letterSpacing: '0.1em',
+    fontWeight: 'bolder',
   },
 
   navIcon: {
@@ -173,6 +175,9 @@ const Nav = () => {
             </Typography>
           </Box>
         ))}
+        <Box>
+          <ThemeToggle />
+        </Box>
       </Box>
       <Box className={styles.footer}>
         <Box className={styles.footerDesc}>

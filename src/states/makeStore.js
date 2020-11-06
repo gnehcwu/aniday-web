@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 
 export default function makeStore(reducer, initialState = {}) {
   const storeContext = createContext();
