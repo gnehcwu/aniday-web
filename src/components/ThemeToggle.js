@@ -13,8 +13,8 @@ const ThemeToggle = () => {
   };
 
   return (
-    <IconButton aria-label="toggle light/dark theme" onClick={toggleTheme}>
-      {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+    <IconButton aria-label="toggle light/dark theme" onClick={toggleTheme} style={{ padding: 0 }}>
+      {isDarkMode ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
     </IconButton>
   );
 };

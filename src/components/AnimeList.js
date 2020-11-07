@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateRows: 'max-content max-content auto max-content',
     rowGap: `${theme.spacing(1)}px`,
-    color: grey[700],
   },
 
   cover: {
@@ -94,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   tag: {
-    background: '#ebb62d',
+    background: 'rgb(65, 107, 208)',
     color: 'white',
     fontWeight: '600',
   },

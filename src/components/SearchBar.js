@@ -11,10 +11,8 @@ const useStyles = makeStyles(theme => ({
 
   search: {
     width: '640px',
-    padding: theme.spacing(0.5, 1),
     display: 'flex',
     alignItems: 'center',
-    background: 'rgb(245, 247, 253)',
 
     gridColumn: '2/3',
   },
@@ -22,11 +20,6 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
-    color: 'rgb(65, 107, 208)',
-  },
-
-  searchIcon: {
-    color: 'rgb(65, 107, 208)',
   },
 
   iconButton: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     gridRow: '1/2',
     display: 'grid',
     alignItems: 'center',
-    gridTemplateRows: 'repeat(4, max-content)',
+    gridTemplateRows: 'repeat(5, max-content)',
     rowGap: '16px',
     paddingLeft: theme.spacing(3.75),
     paddingRight: theme.spacing(12.5),
@@ -40,31 +40,27 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
 
     '&:hover': {
-      // background: 'rgb(222, 230, 253)',
-
       '& $icon': {
-        color: 'rgb(65, 107, 208)',
+        // color: 'rgb(65, 107, 208)',
       },
     },
 
     '&:hover $navLabel': {
-      color: 'rgb(65, 107, 208)',
+      // color: 'rgb(65, 107, 208)',
     },
 
     '&:hover $navIcon': {
-      color: 'rgb(65, 107, 208)',
+      // color: 'rgb(65, 107, 208)',
     },
   },
 
   selected: {
-    background: 'rgb(222, 230, 253)',
-
     '& $navLabel': {
-      color: 'rgb(65, 107, 208)',
+      // color: 'rgb(65, 107, 208)',
     },
 
     '& $navIcon': {
-      color: 'rgb(65, 107, 208)',
+      // color: 'rgb(65, 107, 208)',
     },
   },
 
@@ -93,7 +89,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3),
     borderRadius: theme.spacing(1.75),
     letterSpacing: '0.1em',
-    background: 'rgb(222, 230, 253)',
     padding: theme.spacing(3.75, 0),
 
     display: 'grid',
@@ -147,10 +142,15 @@ const navItems = [
     icon: SettingsIcon,
     label: 'Settings',
   },
+  {
+    icon: ThemeToggle,
+    label: 'Toggle Theme',
+  },
 ];
 
 const Nav = () => {
   const styles = useStyles();
+  const theme = useTheme();
   const [selected, setSelected] = useState('Airing');
 
   const switchNavItem = current => {
@@ -158,28 +158,36 @@ const Nav = () => {
   };
 
   return (
-    <Box className={styles.root}>
+    <Box className={styles.root} style={{ background: theme.palette.background.default }}>
       <Box className={styles.navHolder}>
-        {navItems.map(({ icon: NavIcon, label }) => (
-          <Box
-            key={label}
-            className={clsx(styles.navItem, selected === label && styles.selected)}
-            tabIndex="0"
-            onClick={() => switchNavItem(label)}
-          >
-            <Paper className={styles.iconHolder}>
-              <NavIcon className={styles.navIcon} />
-            </Paper>
-            <Typography variant="subtitle1" className={styles.navLabel}>
-              {label}
-            </Typography>
-          </Box>
-        ))}
-        <Box>
-          <ThemeToggle />
-        </Box>
+        {navItems.map(({ icon: NavIcon, label }) => {
+          return label === 'Toggle Theme' ? (
+            <Box key={label} className={styles.navItem}>
+              <Paper className={styles.iconHolder}>
+                <NavIcon />
+              </Paper>
+              <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
+                {label}
+              </Typography>
+            </Box>
+          ) : (
+            <Box
+              key={label}
+              className={clsx(styles.navItem, selected === label && styles.selected)}
+              tabIndex="0"
+              onClick={() => switchNavItem(label)}
+            >
+              <Paper className={styles.iconHolder}>
+                <NavIcon className={styles.navIcon} />
+              </Paper>
+              <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
+                {label}
+              </Typography>
+            </Box>
+          );
+        })}
       </Box>
-      <Box className={styles.footer}>
+      <Paper className={styles.footer} elevation={0}>
         <Box className={styles.footerDesc}>
           <InfoIcon fontSize="small" className={styles.infoIcon} />
           Data by&nbsp;
@@ -196,7 +204,7 @@ const Nav = () => {
             <GitHubIcon />
           </IconButton>
         </Box>
-      </Box>
+      </Paper>
     </Box>
   );
 };
