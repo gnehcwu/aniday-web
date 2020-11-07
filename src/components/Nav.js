@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     display: 'grid',
     gridTemplateRows: 'auto max-content',
+    background: theme.palette.background.default,
   },
 
   navHolder: {
@@ -23,8 +24,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     gridTemplateRows: 'repeat(5, max-content)',
     rowGap: '16px',
-    paddingLeft: theme.spacing(3.75),
-    paddingRight: theme.spacing(12.5),
+    paddingLeft: theme.spacing(3.25),
+    paddingRight: theme.spacing(4.75),
   },
 
   navItem: {
@@ -35,33 +36,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.2, 3.1, 1.2, 1.3),
     width: 'max-content',
     borderRadius: theme.spacing(1.5),
-    transition: 'all cubic-bezier(0.3, 0.55, 0.1, 1) 0.2s',
+    transition: 'background cubic-bezier(0.3, 0.55, 0.1, 1) 0.2s',
     outline: 'none',
     cursor: 'pointer',
 
     '&:hover': {
-      '& $icon': {
-        // color: 'rgb(65, 107, 208)',
-      },
-    },
-
-    '&:hover $navLabel': {
-      // color: 'rgb(65, 107, 208)',
-    },
-
-    '&:hover $navIcon': {
-      // color: 'rgb(65, 107, 208)',
+      background: theme.palette.action.hover,
     },
   },
 
   selected: {
-    '& $navLabel': {
-      // color: 'rgb(65, 107, 208)',
-    },
-
-    '& $navIcon': {
-      // color: 'rgb(65, 107, 208)',
-    },
+    background: theme.palette.action.hover,
   },
 
   iconHolder: {
@@ -149,8 +134,8 @@ const navItems = [
 ];
 
 const Nav = () => {
-  const styles = useStyles();
   const theme = useTheme();
+  const styles = useStyles(theme);
   const [selected, setSelected] = useState('Airing');
 
   const switchNavItem = current => {
@@ -158,7 +143,7 @@ const Nav = () => {
   };
 
   return (
-    <Box className={styles.root} style={{ background: theme.palette.background.default }}>
+    <Box className={styles.root}>
       <Box className={styles.navHolder}>
         {navItems.map(({ icon: NavIcon, label }) => {
           return label === 'Toggle Theme' ? (
