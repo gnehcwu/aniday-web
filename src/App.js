@@ -1,12 +1,12 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { createMuiTheme, makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
-import { Container, Box, Paper, Typography } from '@material-ui/core';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { Container, Box, Typography } from '@material-ui/core';
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
-import AnimeList from './components/AnimeList';
 import { useSetting } from './states/useSettings';
 import { ReactComponent as Logo } from './logo.svg';
+import useRoute from './routes/useRoute';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -58,8 +58,8 @@ const useStyles = makeStyles(theme => ({
 
   content: {
     gridRow: '2/3',
-    paddingTop: theme.spacing(1.5),
-    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 
   filterArea: {
@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  const { isDarkMode, lang } = useSetting();
+  const { isDarkMode } = useSetting();
   const [contentBg, setContentBg] = useState();
 
   const theme = useMemo(
@@ -95,9 +95,11 @@ function App() {
 
   useEffect(() => {
     setContentBg(isDarkMode ? theme.palette.grey[900] : theme.palette.grey[100]);
-  }, [isDarkMode]);
+  }, [theme.palette.grey, isDarkMode]);
 
   const styles = useStyles(theme);
+
+  const ContentComp = useRoute();
 
   return (
     <ThemeProvider theme={theme}>
@@ -123,7 +125,7 @@ function App() {
             <DaySelector className={styles.daySelector} />
           </Box>
           <Box className={styles.content}>
-            <AnimeList />
+            <ContentComp />
           </Box>
         </Box>
       </Container>

@@ -10,7 +10,7 @@ Aniday is a webapp built with [React](https://reactjs.org), to present a simply 
   [screenshot placeholder]
 </p>
 
-👉 &nbsp;Live site: xxx
+👉 &nbsp;Live site: https://anime-day.netlify.app
 
 ### Run locally
 

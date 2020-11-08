@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, Typography, CardMedia, Chip } from '@material-ui/core';
 import cover from '../assets/example.png';
 import MoodOutlined from '@material-ui/icons/MoodOutlined';
-import { green, grey } from '@material-ui/core/colors';
+import { green } from '@material-ui/core/colors';
 import LinkIcon from '@material-ui/icons/Link';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
@@ -139,7 +139,6 @@ const animeList = [
 
 const AnimeList = () => {
   const styles = useStyles();
-  const theme = useTheme();
 
   return (
     <Box className={styles.root}>

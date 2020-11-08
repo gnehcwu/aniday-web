@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -8,7 +8,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import clsx from 'clsx';
-import ThemeToggle from './ThemeToggle';
+import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     gridTemplateRows: 'repeat(5, max-content)',
     rowGap: '16px',
     paddingLeft: theme.spacing(3.25),
-    paddingRight: theme.spacing(4.75),
+    paddingRight: theme.spacing(8.75),
   },
 
   navItem: {
@@ -114,63 +114,53 @@ const navItems = [
   {
     icon: EventAvailableIcon,
     label: 'Airing',
+    value: 'airing',
   },
   {
     icon: AllInboxIcon,
     label: 'Archive',
+    value: 'archive',
   },
   {
     icon: UpdateIcon,
     label: 'TBA',
+    value: 'tba',
   },
   {
     icon: SettingsIcon,
     label: 'Settings',
-  },
-  {
-    icon: ThemeToggle,
-    label: 'Toggle Theme',
+    value: 'setting',
   },
 ];
 
 const Nav = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
-  const [selected, setSelected] = useState('Airing');
+  const { section: selected } = useGlobal();
+  const dispatch = useGlobalDispatch();
 
-  const switchNavItem = current => {
-    setSelected(current);
+  const switchNavItem = navItem => {
+    dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: { section: navItem } });
   };
 
   return (
     <Box className={styles.root}>
       <Box className={styles.navHolder}>
-        {navItems.map(({ icon: NavIcon, label }) => {
-          return label === 'Toggle Theme' ? (
-            <Box key={label} className={styles.navItem}>
-              <Paper className={styles.iconHolder}>
-                <NavIcon />
-              </Paper>
-              <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
-                {label}
-              </Typography>
-            </Box>
-          ) : (
-            <Box
-              key={label}
-              className={clsx(styles.navItem, selected === label && styles.selected)}
-              tabIndex="0"
-              onClick={() => switchNavItem(label)}
-            >
-              <Paper className={styles.iconHolder}>
-                <NavIcon className={styles.navIcon} />
-              </Paper>
-              <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
-                {label}
-              </Typography>
-            </Box>
-          );
-        })}
+        {navItems.map(({ icon: NavIcon, label, value }) => (
+          <Box
+            key={label}
+            className={clsx(styles.navItem, selected === value && styles.selected)}
+            tabIndex="0"
+            onClick={() => switchNavItem(value)}
+          >
+            <Paper className={styles.iconHolder}>
+              <NavIcon className={styles.navIcon} />
+            </Paper>
+            <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
+              {label}
+            </Typography>
+          </Box>
+        ))}
       </Box>
       <Paper className={styles.footer} elevation={0}>
         <Box className={styles.footerDesc}>

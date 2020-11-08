@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { SettingProvider } from './states/useSettings';
+import { GlobalProvider } from './states/useStore';
 
 ReactDOM.render(
   <React.StrictMode>
     <SettingProvider>
-      <App />
+      <GlobalProvider>
+        <App />
+      </GlobalProvider>
     </SettingProvider>
   </React.StrictMode>,
   document.getElementById('root')
