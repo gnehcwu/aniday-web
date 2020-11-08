@@ -6,6 +6,7 @@ import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import AnimeList from './components/AnimeList';
 import { useSetting } from './states/useSettings';
+import { ReactComponent as Logo } from './logo.svg';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -31,11 +32,21 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     display: 'grid',
     placeContent: 'center',
+    rowGap: `${theme.spacing(2)}px`,
+  },
+
+  logoIcon: {
+    width: '57px',
+  },
+
+  logoText: {
     textTransform: 'uppercase',
+    fontWeight: '900',
   },
 
   nav: {
     gridRow: '2/3',
+    paddingTop: theme.spacing(2),
   },
 
   contentArea: {
@@ -97,7 +108,10 @@ function App() {
       >
         <Box className={styles.navArea}>
           <Box className={styles.logo}>
-            <Typography color="textPrimary">Anime Day</Typography>
+            <Logo className={styles.logoIcon} alt="logo" />
+            <Typography color="textPrimary" className={styles.logoText}>
+              Anime Day
+            </Typography>
           </Box>
           <Box className={styles.nav}>
             <Nav />
