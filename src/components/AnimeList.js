@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 0, 1.5, 2),
 
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(60px, max-content))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(max-content, 0))',
     columnGap: `${theme.spacing(1)}px`,
   },
 
@@ -114,10 +114,6 @@ const useStyles = makeStyles(theme => ({
     columnGap: theme.spacing(0.5),
     alignContent: 'center',
     alignSelf: 'start',
-  },
-
-  popIcon: {
-    color: green[85],
   },
 }));
 
@@ -162,7 +158,7 @@ const AnimeList = () => {
                 <Typography variant="h6">5 days, 2 hours</Typography>
               </Box>
               <Box className={styles.popularity}>
-                <MoodOutlined style={{ color: green[500] }} className={styles.popIcon} />
+                <MoodOutlined style={{ color: green[500] }} />
                 <Typography variant="subtitle1">78%</Typography>
               </Box>
             </Box>

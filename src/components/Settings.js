@@ -2,24 +2,22 @@ import React from 'react';
 import { Box, Paper, Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { SETTING_ACTIONS, useSetting, useSettingDispatch } from '../states/useSettings';
-import { IconButton } from '@material-ui/core';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     gridTemplateRows: 'max-content max-content',
-    rowGap: `${theme.spacing(2)}px`,
+    rowGap: `${theme.spacing(3)}px`,
     padding: theme.spacing(2, 4),
   },
   settingItem: {
     display: 'grid',
-    justifyContent: 'start',
     alignItems: 'center',
     gridTemplateRows: 'max-content auto',
-    rowGap: `${theme.spacing(1.5)}px`,
-    padding: theme.spacing(3, 4),
+    rowGap: `${theme.spacing(2)}px`,
+    padding: theme.spacing(4),
   },
   settingLabel: {
     textTransform: 'capital',
@@ -28,17 +26,43 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(max-content, 0))',
   },
+  settingRecords: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(140px, 100%), 1fr))',
+    columnGap: `${theme.spacing(3)}px`,
+    rowGap: `${theme.spacing(2)}px`,
+  },
+  settingRecord: {
+    background: theme.palette.action.hover,
+    padding: theme.spacing(1, 2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    cursor: 'pointer',
+  },
 }));
+
+const langs = [
+  { title: 'Romaji', value: 'romaji' },
+  { title: 'English', value: 'english' },
+  { title: 'Native', value: 'native' },
+];
+
+const themeModes = [{ title: 'Light' }, { title: 'Dark' }];
 
 const Settings = () => {
   const toggleTheme = mode => {
     dispatch({ type: SETTING_ACTIONS.UPDATE_THEME, payload: { isDarkMode: mode } });
   };
 
+  const setTitleLang = language => {
+    dispatch({ type: SETTING_ACTIONS.UPDATE_LANGUAGE, payload: { lang: language } });
+  };
+
   const theme = useTheme();
   const styles = useStyles(theme);
   const dispatch = useSettingDispatch();
-  const { isDarkMode } = useSetting();
+  const { isDarkMode, lang } = useSetting();
 
   return (
     <Box className={styles.container}>
@@ -46,27 +70,37 @@ const Settings = () => {
         <Typography variant="h6" className={styles.settingLabel}>
           Theme:
         </Typography>
-        <Box className={styles.settingContent}>
-          <IconButton
-            color={isDarkMode ? 'default' : 'secondary'}
-            aria-label="toggle light theme"
-            onClick={() => toggleTheme(false)}
-          >
-            <Brightness7Icon />
-          </IconButton>
-          <IconButton
-            color={isDarkMode ? 'secondary' : 'default'}
-            aria-label="toggle dark theme"
-            onClick={() => toggleTheme(true)}
-          >
-            <Brightness4Icon />
-          </IconButton>
+        <Box className={styles.settingRecords}>
+          {themeModes.map(({ title }) => (
+            <Paper
+              key={title}
+              className={styles.settingRecord}
+              onClick={() => toggleTheme(title === 'Dark')}
+            >
+              <Typography variant="h6" className={styles.recordTitle}>
+                {title}
+              </Typography>
+              {isDarkMode ^ (title === 'Light') ? (
+                <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />
+              ) : null}
+            </Paper>
+          ))}
         </Box>
       </Paper>
       <Paper elevation={3} className={styles.settingItem}>
         <Typography variant="h6" className={styles.settingLabel}>
           Title Language:
         </Typography>
+        <Box className={styles.settingRecords}>
+          {langs.map(({ title, value }) => (
+            <Paper key={title} className={styles.settingRecord} onClick={() => setTitleLang(value)}>
+              <Typography variant="h6" className={styles.recordTitle}>
+                {title}
+              </Typography>
+              {lang === value && <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />}
+            </Paper>
+          ))}
+        </Box>
       </Paper>
     </Box>
   );

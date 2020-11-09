@@ -18,7 +18,7 @@ function reducer(state, action) {
 
 const [SettingProvider, useSetting, useSettingDispatch] = makeStore(reducer, {
   isDarkMode: true,
-  lang: 'en',
+  lang: 'english',
 });
 
 export { SETTING_ACTIONS, SettingProvider, useSetting, useSettingDispatch };
