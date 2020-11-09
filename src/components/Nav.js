@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import AllInboxIcon from '@material-ui/icons/AllInbox';
+// import AllInboxIcon from '@material-ui/icons/AllInbox';
 import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -23,9 +23,9 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     alignItems: 'center',
     gridTemplateRows: 'repeat(5, max-content)',
-    rowGap: '16px',
+    rowGap: `${theme.spacing(3)}px`,
     paddingLeft: theme.spacing(3.25),
-    paddingRight: theme.spacing(8.75),
+    paddingRight: theme.spacing(9.75),
   },
 
   navItem: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   iconHolder: {
-    padding: theme.spacing(1.1),
+    padding: theme.spacing(1.5),
     gridColumn: '1/2',
     width: 'max-content',
     borderRadius: theme.spacing(1.5),
@@ -63,6 +63,7 @@ const useStyles = makeStyles(theme => ({
     gridColumn: '2/3',
     letterSpacing: '0.1em',
     fontWeight: 'bolder',
+    fontSize: '1.2rem',
   },
 
   navIcon: {
@@ -116,11 +117,11 @@ const navItems = [
     label: 'Airing',
     value: 'airing',
   },
-  {
-    icon: AllInboxIcon,
-    label: 'Archive',
-    value: 'archive',
-  },
+  // {
+  //   icon: AllInboxIcon,
+  //   label: 'Archive',
+  //   value: 'archive',
+  // },
   {
     icon: UpdateIcon,
     label: 'TBA',
@@ -153,7 +154,7 @@ const Nav = () => {
             tabIndex="0"
             onClick={() => switchNavItem(value)}
           >
-            <Paper className={styles.iconHolder}>
+            <Paper className={styles.iconHolder} elevation={5}>
               <NavIcon className={styles.navIcon} />
             </Paper>
             <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>

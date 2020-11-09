@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
   nav: {
     gridRow: '2/3',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
   },
 
   contentArea: {
