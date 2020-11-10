@@ -11,9 +11,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(min(400px, 100%), 1fr))',
-    padding: theme.spacing(0, 2),
-    rowGap: `${theme.spacing(4)}px`,
-    columnGap: `${theme.spacing(3)}px`,
+    padding: theme.spacing(1, 4),
+    rowGap: `${theme.spacing(5)}px`,
+    columnGap: `${theme.spacing(4)}px`,
   },
 
   card: {

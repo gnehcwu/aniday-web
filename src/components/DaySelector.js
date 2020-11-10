@@ -4,7 +4,7 @@ import { Box, Chip, Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(0, 4, 1, 4),
+    padding: theme.spacing(1, 4, 1, 4),
   },
 
   daysContainer: {

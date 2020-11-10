@@ -3,7 +3,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-// import AllInboxIcon from '@material-ui/icons/AllInbox';
 import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -76,6 +75,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(1.75),
     letterSpacing: '0.1em',
     padding: theme.spacing(3.75, 0),
+    background: theme.palette.action.hover,
 
     display: 'grid',
     gridTemplateRows: 'repeat(2, max-content)',
@@ -117,11 +117,6 @@ const navItems = [
     label: 'Airing',
     value: 'airing',
   },
-  // {
-  //   icon: AllInboxIcon,
-  //   label: 'Archive',
-  //   value: 'archive',
-  // },
   {
     icon: UpdateIcon,
     label: 'TBA',

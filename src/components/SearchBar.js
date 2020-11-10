@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
     placeContent: 'center',
+    paddingBottom: `${theme.spacing(1)}px`,
   },
 
   search: {

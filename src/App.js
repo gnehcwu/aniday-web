@@ -66,7 +66,6 @@ const useStyles = makeStyles(theme => ({
     gridRow: '1/2',
     display: 'grid',
     justifyContent: 'center',
-    rowGap: `${theme.spacing(2)}px`,
     padding: theme.spacing(2, 3, 1, 3),
 
     position: 'sticky',
@@ -99,7 +98,8 @@ function App() {
 
   const styles = useStyles(theme);
 
-  const ContentComp = useRoute();
+  const [ContentComp, isAiring] = useRoute();
+  console.log(111, ContentComp, isAiring);
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,7 +122,7 @@ function App() {
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
             <SearchBar className={styles.searchBar} />
-            <DaySelector className={styles.daySelector} />
+            {isAiring ? <DaySelector className={styles.daySelector} /> : null}
           </Box>
           <Box className={styles.content}>
             <ContentComp />
