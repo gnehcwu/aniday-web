@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     gridTemplateRows: 'repeat(5, max-content)',
     rowGap: `${theme.spacing(3)}px`,
     paddingLeft: theme.spacing(3.25),
-    paddingRight: theme.spacing(9.75),
+    paddingRight: theme.spacing(7.85),
   },
 
   navItem: {
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     transition: 'background cubic-bezier(0.3, 0.55, 0.1, 1) 0.2s',
     outline: 'none',
     cursor: 'pointer',
+    background: theme.palette.background.default,
 
     '&:hover': {
       background: theme.palette.action.hover,
@@ -56,6 +57,8 @@ const useStyles = makeStyles(theme => ({
 
     display: 'grid',
     placeContent: 'center',
+
+    background: `${theme.palette.type === 'dark' ? theme.palette.action.hover : theme.palette.grey[100]}`,
   },
 
   navLabel: {
@@ -139,23 +142,26 @@ const Nav = () => {
     dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: { section: navItem } });
   };
 
+  const checkSelected = value => selected === value;
+
   return (
     <Box className={styles.root}>
       <Box className={styles.navHolder}>
         {navItems.map(({ icon: NavIcon, label, value }) => (
-          <Box
+          <Paper
             key={label}
-            className={clsx(styles.navItem, selected === value && styles.selected)}
+            className={clsx(styles.navItem, checkSelected(value) && styles.selected)}
             tabIndex="0"
             onClick={() => switchNavItem(value)}
+            elevation={checkSelected(value) ? 4 : 0}
           >
-            <Paper className={styles.iconHolder} elevation={5}>
+            <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 4 : 2}>
               <NavIcon className={styles.navIcon} />
             </Paper>
             <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
               {label}
             </Typography>
-          </Box>
+          </Paper>
         ))}
       </Box>
       <Paper className={styles.footer} elevation={0}>

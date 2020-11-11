@@ -71,6 +71,7 @@ const useStyles = makeStyles(theme => ({
     gridRow: '2/3',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    padding: theme.spacing(2, 5),
   },
 }));
 

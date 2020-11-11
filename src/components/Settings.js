@@ -9,8 +9,8 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     gridTemplateRows: 'max-content max-content',
-    rowGap: `${theme.spacing(3)}px`,
-    padding: theme.spacing(2, 4),
+    rowGap: `${theme.spacing(5)}px`,
+    padding: theme.spacing(1),
   },
   settingItem: {
     display: 'grid',
@@ -66,7 +66,7 @@ const Settings = () => {
 
   return (
     <Box className={styles.container}>
-      <Paper elevation={3} className={styles.settingItem}>
+      <Paper elevation={4} className={styles.settingItem}>
         <Typography variant="h6" className={styles.settingLabel}>
           Theme:
         </Typography>
@@ -87,7 +87,7 @@ const Settings = () => {
           ))}
         </Box>
       </Paper>
-      <Paper elevation={3} className={styles.settingItem}>
+      <Paper elevation={4} className={styles.settingItem}>
         <Typography variant="h6" className={styles.settingLabel}>
           Title Language:
         </Typography>

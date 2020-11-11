@@ -11,8 +11,8 @@ import { useGlobal } from '../states/useStore';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(min(400px, 100%), 1fr))',
-    padding: theme.spacing(1, 3),
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(375px, 100%), 1fr))',
+    padding: theme.spacing(1),
     rowGap: `${theme.spacing(5)}px`,
     columnGap: `${theme.spacing(4)}px`,
   },
@@ -144,7 +144,7 @@ const AnimeList = () => {
   return (
     <Box className={styles.root}>
       {fitlered.map((anime, index) => (
-        <Paper key={index} className={styles.card} elevation={3}>
+        <Paper key={index} className={styles.card} elevation={5}>
           <Box className={styles.header}>
             <CardMedia className={styles.cover} image={cover} />
             <Box className={styles.overlay}>
