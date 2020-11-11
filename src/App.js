@@ -49,6 +49,17 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(3),
   },
 
+  filterArea: {
+    gridRow: '1/2',
+    display: 'grid',
+    justifyContent: 'center',
+    padding: theme.spacing(2, 3, 1, 3),
+
+    position: 'sticky',
+    top: '0',
+    zIndex: '10',
+  },
+
   contentArea: {
     gridColumn: '2/3',
     position: 'relative',
@@ -60,17 +71,6 @@ const useStyles = makeStyles(theme => ({
     gridRow: '2/3',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-  },
-
-  filterArea: {
-    gridRow: '1/2',
-    display: 'grid',
-    justifyContent: 'center',
-    padding: theme.spacing(2, 3, 1, 3),
-
-    position: 'sticky',
-    top: '0',
-    zIndex: '10',
   },
 }));
 
@@ -121,8 +121,8 @@ function App() {
         </Box>
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
-            <SearchBar className={styles.searchBar} />
-            {isAiring ? <DaySelector className={styles.daySelector} /> : null}
+            <SearchBar />
+            {isAiring ? <DaySelector /> : null}
           </Box>
           <Box className={styles.content}>
             <ContentComp />

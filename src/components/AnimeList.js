@@ -6,12 +6,13 @@ import MoodOutlined from '@material-ui/icons/MoodOutlined';
 import { green } from '@material-ui/core/colors';
 import LinkIcon from '@material-ui/icons/Link';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import { useGlobal } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(min(400px, 100%), 1fr))',
-    padding: theme.spacing(1, 4),
+    padding: theme.spacing(1, 3),
     rowGap: `${theme.spacing(5)}px`,
     columnGap: `${theme.spacing(4)}px`,
   },
@@ -117,8 +118,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// Mock data for temporary testing
 const animeList = [
-  { chips: ['comedy', 'drama', 'sports'] },
+  { chips: ['comedy', 'drama', 'test'] },
   { chips: ['comedy', 'drama', 'sports'] },
   { chips: ['comedy', 'drama', 'sports'] },
   { chips: ['comedy', 'drama', 'sports'] },
@@ -135,10 +137,13 @@ const animeList = [
 
 const AnimeList = () => {
   const styles = useStyles();
+  const { filter } = useGlobal();
+
+  const fitlered = animeList.filter(item => item.chips.some(chip => chip.includes(filter)));
 
   return (
     <Box className={styles.root}>
-      {animeList.map((anime, index) => (
+      {fitlered.map((anime, index) => (
         <Paper key={index} className={styles.card} elevation={3}>
           <Box className={styles.header}>
             <CardMedia className={styles.cover} image={cover} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, IconButton, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +31,13 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = () => {
   const styles = useStyles();
+  const dispatch = useGlobalDispatch();
+
+  const { filter } = useGlobal();
+
+  const filterAnime = event => {
+    dispatch({ type: STORE_ACTIONS.UPDATE_FILTER, payload: { filter: event.target.value } });
+  };
 
   return (
     <Box className={styles.root}>
@@ -39,8 +47,10 @@ const SearchBar = () => {
         </IconButton>
         <InputBase
           className={styles.input}
+          value={filter}
           placeholder="Filter anime..."
           inputProps={{ 'aria-label': 'Filter anime' }}
+          onChange={filterAnime}
         />
       </Paper>
     </Box>

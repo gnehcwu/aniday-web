@@ -9,13 +9,13 @@ const useStyles = makeStyles(theme => ({
 
   daysContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(7, max-content)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(max-content, 0))',
     columnGap: '12px',
     justifyContent: 'center',
   },
 }));
 
-const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const days = ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const DaySelector = () => {
   const styles = useStyles();
