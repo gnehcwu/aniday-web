@@ -58,6 +58,7 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     top: '0',
     zIndex: '10',
+    opacity: '0.98',
   },
 
   contentArea: {

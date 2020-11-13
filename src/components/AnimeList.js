@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
     display: 'grid',
     gridTemplateRows: 'max-content max-content auto max-content',
-    rowGap: `${theme.spacing(1)}px`,
+    rowGap: `${theme.spacing(0.7)}px`,
   },
 
   cover: {
@@ -79,6 +79,8 @@ const useStyles = makeStyles(theme => ({
   descr: {
     gridRow: '3/4',
     paddingTop: `${theme.spacing(1)}px`,
+    maxHeight: '60px',
+    overflow: 'auto',
   },
 
   footer: {
@@ -172,7 +174,19 @@ const AnimeList = () => {
               <TwitterIcon />
             </Box>
             <Box className={styles.descr}>
-              <Typography variant="caption">The second cour of Haikyuu!! TO THE TOP.</Typography>
+              <Typography
+                variant="caption"
+                variantMapping={{ caption: 'p' }}
+                title="The second cour of Haikyuu!! TO THE TOP."
+              >
+                The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second
+                cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of
+                Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO
+                THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The
+                second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour
+                of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!!
+                TO THE TOP.The second cour of Haikyuu!! TO THE TOP.
+              </Typography>
             </Box>
             <Box className={styles.footer}>
               {anime.chips.map(tag => (
