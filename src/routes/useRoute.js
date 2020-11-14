@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import Settings from '../components/Settings';
 import AnimeList from '../components/AnimeList';
+import Loading from '../components/Loading';
 import { useGlobal } from '../states/useStore';
 
 const mappings = {
@@ -10,9 +11,9 @@ const mappings = {
 };
 
 const useRoute = () => {
-  const { section } = useGlobal();
+  const { section, isLoading } = useGlobal();
 
-  const comp = useMemo(() => mappings[section], [section]);
+  const comp = useMemo(() => (isLoading ? Loading : mappings[section]), [isLoading, section]);
 
   return [comp, section === 'airing'];
 };
