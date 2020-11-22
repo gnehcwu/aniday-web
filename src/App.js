@@ -52,7 +52,6 @@ const useStyles = makeStyles(theme => ({
   filterArea: {
     gridRow: '1/2',
     display: 'grid',
-    justifyContent: 'center',
     padding: theme.spacing(2, 3, 1, 3),
 
     position: 'sticky',
@@ -101,7 +100,6 @@ function App() {
   const styles = useStyles(theme);
 
   const [ContentComp, isAiring] = useRoute();
-  console.log(111, ContentComp, isAiring);
 
   return (
     <ThemeProvider theme={theme}>

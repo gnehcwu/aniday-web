@@ -6,17 +6,15 @@ import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'grid',
-    placeContent: 'center',
-    paddingBottom: `${theme.spacing(1)}px`,
+    padding: theme.spacing(0, 3, 1, 3),
   },
 
   search: {
-    width: '640px',
     display: 'flex',
     alignItems: 'center',
-
-    gridColumn: '2/3',
+    margin: '0 auto',
+    maxWidth: '640px',
+    width: '75%',
   },
 
   input: {
