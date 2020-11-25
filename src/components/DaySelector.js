@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -94,40 +94,73 @@ const DaySelector = () => {
     setSelected(current);
   };
 
+  const getWidthDiff = () => {
+    if (contentRef.current && containerRef.current) {
+      return contentRef.current.clientWidth - containerRef.current.clientWidth;
+    }
+    return 0;
+  };
+
+  const scroll = (event, direction) => {
+    let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
+    // Scrolling unit size: 200px
+    let cur = transX + sign * 200;
+    const widthDiff = getWidthDiff();
+    if (cur < 0) {
+      cur = 0;
+    } else if (cur > widthDiff) {
+      cur = widthDiff;
+    }
+
+    setTransX(cur);
+  };
+
   useEffect(() => {
     const handleResizing = () => {
-      console.log(containerRef.current.clientWidth, contentRef.current.clientWidth);
-      const mobileMode = containerRef.current.clientWidth < contentRef.current.clientWidth;
+      const mobileMode = getWidthDiff() > 0;
       setIsMobile(mobileMode);
-      console.log(11111, isMobile);
     };
+
     window.addEventListener('resize', handleResizing);
     handleResizing();
 
-    const handleScrolling = event => {
-      console.log(2222, event);
-    };
-    containerRef.current.addEventListener('scroll', handleScrolling);
+    const contentEle = contentRef.current;
+    contentEle.addEventListener('wheel', scroll);
 
     return () => {
       window.removeEventListener('resize', handleResizing);
-      containerRef.current.removeEventListener('scroll', handleScrolling);
+      contentEle.removeEventListener('wheel', scroll);
     };
   });
 
-  const getNavIconStatus = () => {
-    return { display: `${isMobile ? 'flex' : 'none'}` };
+  const getNavIconStatus = direction => {
+    const widthDiff = getWidthDiff();
+    let display = 'none';
+    if (
+      isMobile &&
+      ((direction === 'left' && transX > 0) || (direction === 'right' && transX < widthDiff))
+    ) {
+      display = 'flex';
+    }
+    return { display };
   };
 
   return (
     <Box className={styles.root} ref={containerRef}>
-      <Box className={styles.navIconHolderLeft} style={getNavIconStatus()}>
-        <IconButton size="small" className={styles.navIcon}>
+      <Box className={styles.navIconHolderLeft} style={getNavIconStatus('left')}>
+        <IconButton size="small" className={styles.navIcon} onClick={event => scroll(event, 'left')}>
           <KeyboardArrowLeftIcon />
         </IconButton>
       </Box>
-      <Box className={styles.scrollContainer}>
-        <Box className={styles.daysContainer} ref={contentRef}>
+      <Box
+        className={styles.scrollContainer}
+        style={{ justifyContent: `${isMobile ? 'start' : 'center'}` }}
+      >
+        <Box
+          className={styles.daysContainer}
+          ref={contentRef}
+          style={{ transform: `translateX(${-1 * transX}px)` }}
+        >
           {days.map(day => (
             <Chip
               key={day}
@@ -141,8 +174,8 @@ const DaySelector = () => {
           ))}
         </Box>
       </Box>
-      <Box className={styles.navIconHolderRight} style={getNavIconStatus()}>
-        <IconButton size="small" className={styles.navIcon}>
+      <Box className={styles.navIconHolderRight} style={getNavIconStatus('right')}>
+        <IconButton size="small" className={styles.navIcon} onClick={event => scroll(event, 'right')}>
           <KeyboardArrowRightIcon />
         </IconButton>
       </Box>
