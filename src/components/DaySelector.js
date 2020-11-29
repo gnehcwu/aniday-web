@@ -102,9 +102,12 @@ const DaySelector = () => {
   };
 
   const scroll = (event, direction) => {
+    event.preventDefault();
+
+    if (!isMobile) return;
+
     let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
-    // Scrolling unit size: 200px
-    let cur = transX + sign * 200;
+    let cur = transX + sign * 200; // Magic number for scrolling unit size: 200px
     const widthDiff = getWidthDiff();
     if (cur < 0) {
       cur = 0;
@@ -119,6 +122,9 @@ const DaySelector = () => {
     const handleResizing = () => {
       const mobileMode = getWidthDiff() > 0;
       setIsMobile(mobileMode);
+
+      // Reset translateX when switching "mobile" mode
+      if (!isMobile) setTransX(0);
     };
 
     window.addEventListener('resize', handleResizing);

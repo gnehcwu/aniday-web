@@ -155,7 +155,7 @@ const Nav = () => {
             onClick={() => switchNavItem(value)}
             elevation={checkSelected(value) ? 4 : 0}
           >
-            <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 4 : 2}>
+            <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 1 : 3}>
               <NavIcon className={styles.navIcon} />
             </Paper>
             <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
