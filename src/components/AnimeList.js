@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Paper, Typography, CardMedia, Chip } from '@material-ui/core';
-import cover from '../assets/example.png';
+import { Box, Paper, Typography, Chip, IconButton } from '@material-ui/core';
 import MoodOutlined from '@material-ui/icons/MoodOutlined';
 import { green } from '@material-ui/core/colors';
 import LinkIcon from '@material-ui/icons/Link';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import { useGlobal } from '../states/useStore';
+import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
+import getAiring from '../services/airing';
+import Loading from '../components/Loading';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +39,13 @@ const useStyles = makeStyles(theme => ({
   },
 
   cover: {
+    width: '100%',
     height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    objectFit: 'cover',
   },
 
   overlay: {
@@ -120,76 +126,67 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// Mock data for temporary testing
-const animeList = [
-  { chips: ['comedy', 'drama', 'test'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-  { chips: ['comedy', 'drama', 'sports'] },
-];
-
 const AnimeList = () => {
   const styles = useStyles();
-  const { filter } = useGlobal();
+  const { filter, section, isLoading } = useGlobal();
+  const [animes, setAnimes] = useState([]);
+  const dispatch = useGlobalDispatch();
 
-  const fitlered = animeList.filter(item => item.chips.some(chip => chip.includes(filter)));
+  useEffect(() => {
+    dispatch({ type: STORE_ACTIONS.UPDATE_LOADING_STATUS, payload: { isLoading: true } });
+    getAiring()
+      .then(result => {
+        console.log('executing effect');
+        setAnimes(result.data.Page.airingSchedules);
+        dispatch({ type: STORE_ACTIONS.UPDATE_LOADING_STATUS, payload: { isLoading: false } });
+      })
+      .catch(() => {
+        dispatch({ type: STORE_ACTIONS.UPDATE_LOADING_STATUS, payload: { isLoading: false } });
+      });
+  }, [section]);
 
-  return (
+  const fitlered = animes.filter(item => item.media.genres.some(chip => chip.includes(filter)));
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Box className={styles.root}>
-      {fitlered.map((anime, index) => (
+      {fitlered.map(({ airingAt, episode, media: anime }, index) => (
         <Paper key={index} className={styles.card} elevation={5}>
           <Box className={styles.header}>
-            <CardMedia className={styles.cover} image={cover} />
+            <img className={styles.cover} src={anime.coverImage.extraLarge} />
             <Box className={styles.overlay}>
               <Typography variant="subtitle2" className={styles.title}>
-                Haikyuu!! TO THE TOP 2
+                {anime.title.romaji}
               </Typography>
               <Typography variant="caption" className={styles.studio}>
-                Production I.G
+                {anime.studios && anime.studios.nodes[0] && anime.studios.nodes[0].name}
               </Typography>
             </Box>
           </Box>
           <Box className={styles.details}>
             <Box className={styles.conclusion}>
               <Box className={styles.shcedule}>
-                <Typography variant="caption">Ep 3 of 24 airing in</Typography>
-                <Typography variant="h6">5 days, 2 hours</Typography>
+                <Typography variant="caption">Ep {episode}</Typography>
+                {/* <Typography variant="h6">5 days, 2 hours</Typography> */}
               </Box>
               <Box className={styles.popularity}>
                 <MoodOutlined style={{ color: green[500] }} />
-                <Typography variant="subtitle1">78%</Typography>
+                <Typography variant="subtitle1">{anime.popularity}%</Typography>
               </Box>
             </Box>
             <Box className={styles.resources}>
-              <LinkIcon />
-              <TwitterIcon />
+              <IconButton onClick={() => window.open(anime.siteUrl, '_blank')} size="small">
+                <LinkIcon />
+              </IconButton>
             </Box>
             <Box className={styles.descr}>
-              <Typography
-                variant="caption"
-                variantMapping={{ caption: 'p' }}
-                title="The second cour of Haikyuu!! TO THE TOP."
-              >
-                The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second
-                cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of
-                Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO
-                THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The
-                second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour
-                of Haikyuu!! TO THE TOP.The second cour of Haikyuu!! TO THE TOP.The second cour of Haikyuu!!
-                TO THE TOP.The second cour of Haikyuu!! TO THE TOP.
+              <Typography variant="caption" variantMapping={{ caption: 'p' }} title={anime.description}>
+                <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title.romaji }}></span>
               </Typography>
             </Box>
             <Box className={styles.footer}>
-              {anime.chips.map(tag => (
+              {anime.genres.map(tag => (
                 <Chip key={tag} size="small" className={styles.tag} label={tag}></Chip>
               ))}
             </Box>

@@ -11,9 +11,8 @@ const mappings = {
 };
 
 const useRoute = () => {
-  const { section, isLoading } = useGlobal();
-
-  const comp = useMemo(() => (isLoading ? Loading : mappings[section]), [isLoading, section]);
+  const { section } = useGlobal();
+  const comp = useMemo(() => mappings[section], [section]);
 
   return [comp, section === 'airing'];
 };
