@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import Settings from '../components/Settings';
 import AnimeList from '../components/AnimeList';
-import Loading from '../components/Loading';
 import { useGlobal } from '../states/useStore';
 
 const mappings = {

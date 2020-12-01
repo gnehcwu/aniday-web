@@ -83,8 +83,8 @@ function App() {
     () =>
       createMuiTheme({
         typography: {
-          fontFamily:
-            'Overpass, -apple-system, BlinkMacSystemFont, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";',
+          fontFamily: `Overpass, -apple-system, BlinkMacSystemFont, sans-serif,
+            "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";`,
         },
         palette: {
           type: isDarkMode ? 'dark' : 'light',

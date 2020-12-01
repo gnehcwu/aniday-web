@@ -140,11 +140,6 @@ const Nav = () => {
 
   const switchNavItem = navItem => {
     dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: { section: navItem } });
-
-    // Triggering loading when switching to section other than setting
-    if (navItem !== 'setting') {
-      dispatch({ type: STORE_ACTIONS.UPDATE_LOADING_STATUS, payload: { isLoading: true } });
-    }
   };
 
   const checkSelected = value => selected === value;
