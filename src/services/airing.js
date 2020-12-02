@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 
 const airingQuery = gql`
   query($weekStart: Int, $weekEnd: Int, $page: Int) {
-    Page(page: $page, perPage: 1000) {
+    Page(page: $page) {
       pageInfo {
         hasNextPage
         total
@@ -111,10 +111,10 @@ const getVariables = () => {
   };
 };
 
-const getAiring = () =>
+const getAiring = (pageIndex = 1) =>
   client.query({
     query: airingQuery,
-    variables: getVariables(),
+    variables: { ...getVariables(), page: pageIndex },
   });
 
 export default getAiring;

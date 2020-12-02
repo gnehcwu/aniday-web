@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import { useGlobal } from '../states/useStore';
 import getAiring from '../services/airing';
 import Loading from '../components/Loading';
@@ -18,21 +18,17 @@ const useStyles = makeStyles(theme => ({
 
 const AnimeList = () => {
   const styles = useStyles();
-  const { filter, section } = useGlobal();
+  const { filter, section, selectedDate } = useGlobal();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAiringSchedules = async () => {
       setIsLoading(true);
-      console.log(1111, 'execute lifecycle');
       try {
-        console.log(777);
         const result = await getAiring();
-        console.log(888);
         setData(result.data.Page.airingSchedules);
         setIsLoading(false);
-        console.log(2222, 'setting data');
       } catch (err) {
         setIsLoading(false);
       }
@@ -48,7 +44,7 @@ const AnimeList = () => {
   ) : (
     <Box className={styles.root}>
       {filtered.map(({ id, airingAt, episode, media: anime }) => (
-        <AnimeCard key={id} anime={anime} episode={episode} />
+        <AnimeCard key={id} anime={anime} episode={episode} airingAt={airingAt} />
       ))}
     </Box>
   );

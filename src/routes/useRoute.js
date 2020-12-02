@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import Settings from '../components/Settings';
 import AnimeList from '../components/AnimeList';
-import { useGlobal } from '../states/useStore';
 
 const mappings = {
   airing: AnimeList,
@@ -9,8 +8,7 @@ const mappings = {
   tba: AnimeList,
 };
 
-const useRoute = () => {
-  const { section } = useGlobal();
+const useRoute = section => {
   const comp = useMemo(() => mappings[section], [section]);
 
   return [comp, section === 'airing'];

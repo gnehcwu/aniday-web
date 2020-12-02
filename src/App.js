@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import { useSetting } from './states/useSettings';
+import { useGlobal } from './states/useStore';
 import { ReactComponent as Logo } from './logo.svg';
 import useRoute from './routes/useRoute';
 
@@ -77,6 +78,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const { isDarkMode } = useSetting();
+  const { section } = useGlobal();
   const [contentBg, setContentBg] = useState();
 
   const theme = useMemo(
@@ -99,7 +101,7 @@ function App() {
 
   const styles = useStyles(theme);
 
-  const [ContentComp, isAiring] = useRoute();
+  const [ContentComp, isAiring] = useRoute(section);
 
   return (
     <ThemeProvider theme={theme}>

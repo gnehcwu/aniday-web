@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -84,14 +85,15 @@ const days = ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sa
 
 const DaySelector = () => {
   const styles = useStyles();
-  const [selected, setSelected] = useState('All');
-  const [isMobile, setIsMobile] = useState(false);
+  const { selectedDate } = useGlobal();
+  const dispatch = useGlobalDispatch();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [transX, setTransX] = useState(0);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
 
   const switchSelectedDay = current => {
-    setSelected(current);
+    dispatch({ type: STORE_ACTIONS.UPDATE_SELECT_DATE, payload: { selectedDate: current } });
   };
 
   const getWidthDiff = () => {
@@ -104,7 +106,7 @@ const DaySelector = () => {
   const scroll = (event, direction) => {
     event.preventDefault();
 
-    if (!isMobile) return;
+    if (!isSmallScreen) return;
 
     let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
     let cur = transX + sign * 200; // Magic number for scrolling unit size: 200px
@@ -121,10 +123,10 @@ const DaySelector = () => {
   useEffect(() => {
     const handleResizing = () => {
       const mobileMode = getWidthDiff() > 0;
-      setIsMobile(mobileMode);
+      setIsSmallScreen(mobileMode);
 
       // Reset translateX when switching "mobile" mode
-      if (!isMobile) setTransX(0);
+      if (!isSmallScreen) setTransX(0);
     };
 
     window.addEventListener('resize', handleResizing);
@@ -143,7 +145,7 @@ const DaySelector = () => {
     const widthDiff = getWidthDiff();
     let display = 'none';
     if (
-      isMobile &&
+      isSmallScreen &&
       ((direction === 'left' && transX > 0) || (direction === 'right' && transX < widthDiff))
     ) {
       display = 'flex';
@@ -160,7 +162,7 @@ const DaySelector = () => {
       </Box>
       <Box
         className={styles.scrollContainer}
-        style={{ justifyContent: `${isMobile ? 'start' : 'center'}` }}
+        style={{ justifyContent: `${isSmallScreen ? 'start' : 'center'}` }}
       >
         <Box
           className={styles.daysContainer}
@@ -171,7 +173,7 @@ const DaySelector = () => {
             <Chip
               key={day}
               className={styles.dayItem}
-              color={day === selected ? 'primary' : 'default'}
+              color={day === selectedDate ? 'primary' : 'default'}
               clickable
               label={day}
               avatar={<Avatar>{day[0]}</Avatar>}
