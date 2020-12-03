@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -83,17 +82,15 @@ const useStyles = makeStyles(theme => ({
 
 const days = ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const DaySelector = () => {
+const DaySelector = ({ selectedDate, setSelectedDate }) => {
   const styles = useStyles();
-  const { selectedDate } = useGlobal();
-  const dispatch = useGlobalDispatch();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [transX, setTransX] = useState(0);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
 
   const switchSelectedDay = current => {
-    dispatch({ type: STORE_ACTIONS.UPDATE_SELECT_DATE, payload: { selectedDate: current } });
+    setSelectedDate(current);
   };
 
   const getWidthDiff = () => {

@@ -5,7 +5,6 @@ import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import { useSetting } from './states/useSettings';
-import { useGlobal } from './states/useStore';
 import { ReactComponent as Logo } from './logo.svg';
 import useRoute from './routes/useRoute';
 
@@ -78,8 +77,10 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const { isDarkMode } = useSetting();
-  const { section } = useGlobal();
   const [contentBg, setContentBg] = useState();
+  const [section, setSection] = useState('airing');
+  const [selectedDate, setSelectedDate] = useState('All');
+  const [filter, setFilter] = useState('');
 
   const theme = useMemo(
     () =>
@@ -94,6 +95,14 @@ function App() {
       }),
     [isDarkMode]
   );
+
+  const nav = section => {
+    setSection(section);
+  };
+
+  const selectDate = date => {
+    setSelectedDate(date);
+  };
 
   useEffect(() => {
     setContentBg(isDarkMode ? theme.palette.grey[900] : theme.palette.grey[100]);
@@ -118,16 +127,16 @@ function App() {
             </Typography>
           </Box>
           <Box className={styles.nav}>
-            <Nav />
+            <Nav section={section} nav={nav} />
           </Box>
         </Box>
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
-            <SearchBar />
-            {isAiring ? <DaySelector /> : null}
+            <SearchBar filter={filter} setFilter={setFilter} />
+            {isAiring ? <DaySelector selectedDate={selectedDate} selectDate={selectDate} /> : null}
           </Box>
           <Box className={styles.content}>
-            <ContentComp />
+            <ContentComp section={section} filter={filter} />
           </Box>
         </Box>
       </Container>

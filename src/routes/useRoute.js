@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import Settings from '../components/Settings';
-import AnimeList from '../components/AnimeList';
+import AiringList from '../components/AiringList';
+import TbaList from '../components/TbaList';
 
 const mappings = {
-  airing: AnimeList,
+  airing: AiringList,
   setting: Settings,
-  tba: AnimeList,
+  tba: TbaList,
 };
 
 const useRoute = section => {

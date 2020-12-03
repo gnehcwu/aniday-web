@@ -7,7 +7,6 @@ import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import clsx from 'clsx';
-import { STORE_ACTIONS, useGlobal, useGlobalDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -132,17 +131,15 @@ const navItems = [
   },
 ];
 
-const Nav = () => {
+const Nav = ({ section, nav }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
-  const { section: selected } = useGlobal();
-  const dispatch = useGlobalDispatch();
 
   const switchNavItem = navItem => {
-    dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: { section: navItem } });
+    nav(navItem);
   };
 
-  const checkSelected = value => selected === value;
+  const checkSelected = value => section === value;
 
   return (
     <Box className={styles.root}>
