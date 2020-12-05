@@ -6,7 +6,7 @@ import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import { useSetting } from './states/useSettings';
 import { ReactComponent as Logo } from './logo.svg';
-import useRoute from './routes/useRoute';
+import useRoute from './hooks/useRoute';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -78,9 +78,12 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const { isDarkMode } = useSetting();
   const [contentBg, setContentBg] = useState();
+
+  // Extracted from useStore
   const [section, setSection] = useState('airing');
   const [selectedDate, setSelectedDate] = useState('All');
   const [filter, setFilter] = useState('');
+  const [titleLang, setTitleLang] = useState('english');
 
   const theme = useMemo(
     () =>
@@ -95,14 +98,6 @@ function App() {
       }),
     [isDarkMode]
   );
-
-  const nav = section => {
-    setSection(section);
-  };
-
-  const selectDate = date => {
-    setSelectedDate(date);
-  };
 
   useEffect(() => {
     setContentBg(isDarkMode ? theme.palette.grey[900] : theme.palette.grey[100]);
@@ -127,16 +122,21 @@ function App() {
             </Typography>
           </Box>
           <Box className={styles.nav}>
-            <Nav section={section} nav={nav} />
+            <Nav section={section} nav={setSection} />
           </Box>
         </Box>
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
             <SearchBar filter={filter} setFilter={setFilter} />
-            {isAiring ? <DaySelector selectedDate={selectedDate} selectDate={selectDate} /> : null}
+            {isAiring ? <DaySelector selectedDate={selectedDate} selectDate={setSelectedDate} /> : null}
           </Box>
           <Box className={styles.content}>
-            <ContentComp section={section} filter={filter} />
+            <ContentComp
+              section={section}
+              filter={filter}
+              titleLang={titleLang}
+              setTitleLang={setTitleLang}
+            />
           </Box>
         </Box>
       </Container>

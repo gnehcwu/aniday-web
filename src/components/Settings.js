@@ -50,19 +50,15 @@ const langs = [
 
 const themeModes = [{ title: 'Light' }, { title: 'Dark' }];
 
-const Settings = () => {
+const Settings = ({ titleLang, setTitleLang }) => {
   const toggleTheme = mode => {
     dispatch({ type: SETTING_ACTIONS.UPDATE_THEME, payload: { isDarkMode: mode } });
-  };
-
-  const setTitleLang = language => {
-    dispatch({ type: SETTING_ACTIONS.UPDATE_LANGUAGE, payload: { lang: language } });
   };
 
   const theme = useTheme();
   const styles = useStyles(theme);
   const dispatch = useSettingDispatch();
-  const { isDarkMode, lang } = useSetting();
+  const { isDarkMode } = useSetting();
 
   return (
     <Box className={styles.container}>
@@ -97,7 +93,7 @@ const Settings = () => {
               <Typography variant="h6" className={styles.recordTitle}>
                 {title}
               </Typography>
-              {lang === value && <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />}
+              {titleLang === value && <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />}
             </Paper>
           ))}
         </Box>
