@@ -135,11 +135,14 @@ const AnimeCard = ({ anime, episode }) => {
         <Box className={styles.conclusion}>
           <Box className={styles.shcedule}>
             <Typography variant="caption">Ep {episode}</Typography>
-            {/* <Typography variant="h6">5 days, 2 hours</Typography> */}
           </Box>
           <Box className={styles.popularity}>
-            <MoodOutlined style={{ color: green[500] }} />
-            <Typography variant="subtitle1">{anime.popularity}%</Typography>
+            {anime.averageScore ? (
+              <>
+                <MoodOutlined style={{ color: green[500] }} />
+                <Typography variant="subtitle1">{`${anime.averageScore}%`}</Typography>
+              </>
+            ) : null}
           </Box>
         </Box>
         <Box className={styles.resources}>
@@ -153,7 +156,7 @@ const AnimeCard = ({ anime, episode }) => {
           </Typography>
         </Box>
         <Box className={styles.footer}>
-          {anime.genres.slice(0, 4).map(tag => (
+          {anime.genres.slice(0, 3).map(tag => (
             <Chip key={tag} size="small" className={styles.tag} label={tag}></Chip>
           ))}
         </Box>
