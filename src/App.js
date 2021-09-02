@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   contentArea: {
     gridColumn: '2/3',
     position: 'relative',
-    overflowY: 'auto',
+    overflowY: 'overlay',
     scrollBehavior: 'smooth',
   },
 
@@ -80,8 +80,6 @@ function App() {
   const { isDarkMode } = useSetting();
   const [contentBg, setContentBg] = useState();
   const { section } = useStore();
-
-  const [titleLang, setTitleLang] = useState('english');
 
   const theme = useMemo(
     () =>
@@ -129,10 +127,7 @@ function App() {
             {isAiring ? <DaySelector /> : null}
           </Box>
           <Box className={styles.content}>
-            <ContentComp
-              titleLang={titleLang}
-              setTitleLang={setTitleLang}
-            />
+            <ContentComp />
           </Box>
         </Box>
       </Container>

@@ -50,15 +50,19 @@ const langs = [
 
 const themeModes = [{ title: 'Light' }, { title: 'Dark' }];
 
-const Settings = ({ titleLang, setTitleLang }) => {
-  const toggleTheme = mode => {
-    dispatch({ type: SETTING_ACTIONS.UPDATE_THEME, payload: { isDarkMode: mode } });
-  };
-
+const Settings = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
   const dispatch = useSettingDispatch();
-  const { isDarkMode } = useSetting();
+  const { isDarkMode, lang } = useSetting();
+  
+  const toggleTheme = mode => {
+    dispatch({ type: SETTING_ACTIONS.UPDATE_THEME, payload: mode });
+  };
+
+  const setLang = lang => {
+    dispatch({ type: SETTING_ACTIONS.UPDATE_LANG, payload: lang });
+  };
 
   return (
     <Box className={styles.container}>
@@ -68,11 +72,7 @@ const Settings = ({ titleLang, setTitleLang }) => {
         </Typography>
         <Box className={styles.settingRecords}>
           {themeModes.map(({ title }) => (
-            <Paper
-              key={title}
-              className={styles.settingRecord}
-              onClick={() => toggleTheme(title === 'Dark')}
-            >
+            <Paper key={title} className={styles.settingRecord} onClick={() => toggleTheme(title === 'Dark')}>
               <Typography variant="h6" className={styles.recordTitle}>
                 {title}
               </Typography>
@@ -89,11 +89,11 @@ const Settings = ({ titleLang, setTitleLang }) => {
         </Typography>
         <Box className={styles.settingRecords}>
           {langs.map(({ title, value }) => (
-            <Paper key={title} className={styles.settingRecord} onClick={() => setTitleLang(value)}>
+            <Paper key={title} className={styles.settingRecord} onClick={() => setLang(value)}>
               <Typography variant="h6" className={styles.recordTitle}>
                 {title}
               </Typography>
-              {titleLang === value && <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />}
+              {lang === value && <CheckCircleIcon style={{ color: green[500] }} fontSize="small" />}
             </Paper>
           ))}
         </Box>
