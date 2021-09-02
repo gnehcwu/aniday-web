@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     columnGap: `${theme.spacing(0.85)}px`,
   },
 
-  descr: {
+  description: {
     gridRow: '3/4',
     paddingTop: `${theme.spacing(1)}px`,
     maxHeight: '60px',
@@ -80,8 +80,8 @@ const useStyles = makeStyles(theme => ({
     'scrollbar-width': 'none',
 
     '&::-webkit-scrollbar': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   footer: {
@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '600',
   },
 
-  shcedule: {
+  schedule: {
     gridColumn: '1/2',
     display: 'grid',
     gridTemplateRows: 'repeat(2, max-content)',
@@ -139,15 +139,13 @@ const AnimeCard = ({ anime, episode }) => {
       </Box>
       <Box className={styles.details}>
         <Box className={styles.conclusion}>
-          <Box className={styles.shcedule}>
+          <Box className={styles.schedule}>
             <Typography variant="caption">Ep {episode}</Typography>
           </Box>
           <Box className={styles.popularity}>
+            <MoodOutlined style={{ color: green[500] }} />
             {anime.averageScore ? (
-              <>
-                <MoodOutlined style={{ color: green[500] }} />
-                <Typography variant="subtitle1">{`${anime.averageScore}%`}</Typography>
-              </>
+              <Typography variant="subtitle1">{`${anime.averageScore}%`}</Typography>
             ) : null}
           </Box>
         </Box>
@@ -156,7 +154,7 @@ const AnimeCard = ({ anime, episode }) => {
             <LinkIcon />
           </IconButton>
         </Box>
-        <Box className={styles.descr}>
+        <Box className={styles.description}>
           <Typography variant="caption" variantMapping={{ caption: 'p' }} title={anime.description}>
             <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title.romaji }}></span>
           </Typography>

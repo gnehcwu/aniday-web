@@ -1,4 +1,3 @@
-import { startOfWeek, endOfWeek, getUnixTime } from 'date-fns';
 import fetchClient from './fetchClient';
 
 const query = `query($weekStart: Int, $weekEnd: Int, $page: Int) {
@@ -91,17 +90,16 @@ const query = `query($weekStart: Int, $weekEnd: Int, $page: Int) {
   }
 `;
 
-const getVariables = (page) => {
-  const today = new Date();
+const getVariables = (start, end, page) => {
   return {
-    weekStart: getUnixTime(startOfWeek(today)),
-    weekEnd: getUnixTime(endOfWeek(today)),
-    'page': page
+    weekStart: start,
+    weekEnd: end,
+    page: page
   };
 };
 
-const fetchAiring = async (pageIndex = 1) => {
-  return await fetchClient(query, getVariables(pageIndex));
+const fetchAiring = async (start, end, pageIndex = 1) => {
+  return await fetchClient(query, getVariables(start, end, pageIndex));
 };
 
 export default fetchAiring;

@@ -1,9 +1,10 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Loading from './Loading';
 import AnimeCard from './AnimeCard';
-import useAnimeList from '../hooks/useAnilist';
+import useAnimeList from '../hooks/useAnime';
+import { useStore } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,19 +16,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TbaList = ({ section }) => {
+const TbaList = () => {
   const styles = useStyles();
-  const [isLoading, data, fetchAnimes] = useAnimeList();
 
-  useEffect(() => {
-    fetchAnimes(section);
-  }, [section, fetchAnimes])
+  const { isLoading, tbaList } = useStore();
+
+  useAnimeList();
 
   return isLoading ? (
     <Loading />
   ) : (
     <Box className={styles.root}>
-      {data.map(anime => (
+      {tbaList.map(anime => (
         <AnimeCard key={anime.id} anime={anime} />
       ))}
     </Box>

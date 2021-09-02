@@ -7,6 +7,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import clsx from 'clsx';
+import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: '0.1em',
     fontWeight: 'bolder',
     fontSize: '1.2rem',
+    userSelect: 'none'
   },
 
   navIcon: {
@@ -131,12 +133,14 @@ const navItems = [
   },
 ];
 
-const Nav = ({ section, nav }) => {
+const Nav = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
+  const { section } = useStore();
+  const dispatch = useStoreDispatch();
 
   const switchNavItem = navItem => {
-    nav(navItem);
+    dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: navItem });
   };
 
   const checkSelected = value => section === value;

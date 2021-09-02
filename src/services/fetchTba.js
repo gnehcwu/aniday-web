@@ -106,7 +106,7 @@ const getVariables = page => {
   };
 };
 
-const fetchTba = async (pageIndex = 1) => {
+const fetchTba = async (_, __, pageIndex = 1) => {
   return await fetchClient(query, getVariables(pageIndex));
 };
 

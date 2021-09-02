@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { startOfWeek, addDays, getUnixTime, isSameDay } from 'date-fns';
+import { startOfWeek, addDays, getUnixTime } from 'date-fns';
 import { STORE_ACTIONS, useStore, useStoreDispatch} from '../states/useStore';
 
 

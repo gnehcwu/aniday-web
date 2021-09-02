@@ -7,6 +7,7 @@ import DaySelector from './components/DaySelector';
 import { useSetting } from './states/useSettings';
 import { ReactComponent as Logo } from './logo.svg';
 import useRoute from './hooks/useRoute';
+import { useStore } from './states/useStore';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -78,10 +79,8 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const { isDarkMode } = useSetting();
   const [contentBg, setContentBg] = useState();
+  const { section } = useStore();
 
-  // Extracted from useStore
-  const [section, setSection] = useState('airing');
-  const [filter, setFilter] = useState('');
   const [titleLang, setTitleLang] = useState('english');
 
   const theme = useMemo(
@@ -121,18 +120,16 @@ function App() {
             </Typography>
           </Box>
           <Box className={styles.nav}>
-            <Nav section={section} nav={setSection} />
+            <Nav />
           </Box>
         </Box>
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
-            <SearchBar filter={filter} setFilter={setFilter} />
+            <SearchBar />
             {isAiring ? <DaySelector /> : null}
           </Box>
           <Box className={styles.content}>
             <ContentComp
-              section={section}
-              filter={filter}
               titleLang={titleLang}
               setTitleLang={setTitleLang}
             />
