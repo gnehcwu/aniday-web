@@ -112,7 +112,7 @@ function App() {
       <Container
         maxWidth={false}
         className={styles.app}
-        style={{ background: theme.palette.background.default }}
+        style={{ background: theme.palette.background.default, colorScheme: isDarkMode ? 'dark' : 'light' }}
       >
         <Box className={styles.navArea}>
           <Box className={styles.logo}>

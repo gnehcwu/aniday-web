@@ -1,8 +1,6 @@
-import client from './client';
-import { gql } from '@apollo/client';
+import fetchClient from './fetchClient';
 
-const tbaQuery = gql`
-  query($format: MediaFormat, $excludeFormat: MediaFormat, $page: Int) {
+const query = `query ($format: MediaFormat, $excludeFormat: MediaFormat, $page: Int) {
     Page(page: $page) {
       pageInfo {
         hasNextPage
@@ -101,17 +99,15 @@ const tbaQuery = gql`
   }
 `;
 
-const getVariables = () => {
+const getVariables = page => {
   return {
     format: 'TV',
-    page: 1,
+    page: page,
   };
 };
 
-const getTba = (pageIndex = 1) =>
-  client.query({
-    query: tbaQuery,
-    variables: { ...getVariables(), page: pageIndex },
-  });
+const fetchTba = async (pageIndex = 1) => {
+  return await fetchClient(query, getVariables(pageIndex));
+};
 
-export default getTba;
+export default fetchTba;

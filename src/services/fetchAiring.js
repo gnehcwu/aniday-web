@@ -1,8 +1,7 @@
-import client from './client';
-import { gql } from '@apollo/client';
+import { startOfWeek, endOfWeek, getUnixTime } from 'date-fns';
+import fetchClient from './fetchClient';
 
-const airingQuery = gql`
-  query($weekStart: Int, $weekEnd: Int, $page: Int) {
+const query = `query($weekStart: Int, $weekEnd: Int, $page: Int) {
     Page(page: $page) {
       pageInfo {
         hasNextPage
@@ -92,29 +91,17 @@ const airingQuery = gql`
   }
 `;
 
-const getVariables = () => {
-  const getSecondsOfMondayOrSunday = isMonday => {
-    const date = new Date();
-    const day = date.getDay();
-    let diff = 0;
-    if (isMonday) {
-      diff = day * 24 * 60 * 60 * 1000;
-    } else {
-      diff = (day - 7) * 24 * 60 * 60 * 1000;
-    }
-
-    return (new Date(date.getFullYear(), date.getMonth() + 1, date.getDay()).getTime() - diff) / 1000;
-  };
+const getVariables = (page) => {
+  const today = new Date();
   return {
-    weekStart: getSecondsOfMondayOrSunday(true),
-    weekEnd: getSecondsOfMondayOrSunday(false),
+    weekStart: getUnixTime(startOfWeek(today)),
+    weekEnd: getUnixTime(endOfWeek(today)),
+    'page': page
   };
 };
 
-const getAiring = (pageIndex = 1) =>
-  client.query({
-    query: airingQuery,
-    variables: { ...getVariables(), page: pageIndex },
-  });
+const fetchAiring = async (pageIndex = 1) => {
+  return await fetchClient(query, getVariables(pageIndex));
+};
 
-export default getAiring;
+export default fetchAiring;

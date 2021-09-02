@@ -2,15 +2,15 @@ import React, { createContext, useContext, useReducer } from 'react';
 
 export default function makeStore(reducer, initialState = {}) {
   const storeContext = createContext();
-  const dispatchContenxt = createContext();
+  const dispatchContext = createContext();
 
   const StoreProvider = ({ children }) => {
     const [store, dispatch] = useReducer(reducer, initialState);
 
     return (
-      <dispatchContenxt.Provider value={dispatch}>
+      <dispatchContext.Provider value={dispatch}>
         <storeContext.Provider value={store}>{children}</storeContext.Provider>
-      </dispatchContenxt.Provider>
+      </dispatchContext.Provider>
     );
   };
 
@@ -19,7 +19,7 @@ export default function makeStore(reducer, initialState = {}) {
   }
 
   function useDispatch() {
-    return useContext(dispatchContenxt);
+    return useContext(dispatchContext);
   }
 
   return [StoreProvider, useStore, useDispatch];

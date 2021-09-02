@@ -76,6 +76,12 @@ const useStyles = makeStyles(theme => ({
     paddingTop: `${theme.spacing(1)}px`,
     maxHeight: '60px',
     overflow: 'auto',
+    '-ms-overflow-style': 'none',
+    'scrollbar-width': 'none',
+
+    '&::-webkit-scrollbar': {
+      display: 'none'
+    }
   },
 
   footer: {

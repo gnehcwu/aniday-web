@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Loading from './Loading';
 import AnimeCard from './AnimeCard';
-import useAnilist from '../hooks/useAnilist';
+import useAnimeList from '../hooks/useAnilist';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,18 +17,24 @@ const useStyles = makeStyles(theme => ({
 
 const AiringList = ({ filter, section }) => {
   const styles = useStyles();
-  const [isLoading, data] = useAnilist(section);
+  // const { isLoading, data } = useQuery('airing', () => fetchAiring());
+  const [isLoading, data, fetchAnimes] = useAnimeList();
 
-  const filtered = data.filter(item =>
-    item.media.genres.some(genere => filter === '' || genere.includes(filter))
-  );
+  useEffect(() => {
+    fetchAnimes(section);
+  }, [section, fetchAnimes])
 
-  console.log('rendering.....', isLoading, data);
+  const getFilteredData = () => {
+    return data.filter(item =>
+      item.media.genres.some(genre => filter === '' || genre.includes(filter))
+    );
+  };
+
   return isLoading ? (
     <Loading />
   ) : (
     <Box className={styles.root}>
-      {filtered.map(({ id, airingAt, episode, media: anime }) => (
+      {getFilteredData().map(({ id, airingAt, episode, media: anime }) => (
         <AnimeCard key={id} anime={anime} episode={episode} airingAt={airingAt} />
       ))}
     </Box>
