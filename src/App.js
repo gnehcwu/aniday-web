@@ -81,7 +81,6 @@ function App() {
 
   // Extracted from useStore
   const [section, setSection] = useState('airing');
-  const [selectedDate, setSelectedDate] = useState('All');
   const [filter, setFilter] = useState('');
   const [titleLang, setTitleLang] = useState('english');
 
@@ -128,7 +127,7 @@ function App() {
         <Box className={styles.contentArea} style={{ background: contentBg }}>
           <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
             <SearchBar filter={filter} setFilter={setFilter} />
-            {isAiring ? <DaySelector selectedDate={selectedDate} selectDate={setSelectedDate} /> : null}
+            {isAiring ? <DaySelector /> : null}
           </Box>
           <Box className={styles.content}>
             <ContentComp

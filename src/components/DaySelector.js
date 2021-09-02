@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { startOfWeek, addDays, getUnixTime, isSameDay } from 'date-fns';
+import { STORE_ACTIONS, useStore, useStoreDispatch} from '../states/useStore';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -80,17 +83,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const days = ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const DaySelector = ({ selectedDate, setSelectedDate }) => {
+function getDayMap(today) {
+  const weekStart = startOfWeek(today, { weekStartsOn: 1})
+  const daysMap = days.map((value, index) => {
+    return [value, getUnixTime(addDays(weekStart, index)), getUnixTime(addDays(weekStart, index + 1)) - 1]
+  });
+
+  return daysMap;
+}
+
+const DaySelector = () => {
   const styles = useStyles();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [transX, setTransX] = useState(0);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
+  const { today, startTimestamp } = useStore();
+  const dispatch = useStoreDispatch();
 
-  const switchSelectedDay = current => {
-    setSelectedDate(current);
+  const daysMap = getDayMap(today);
+
+  const switchSelectedDay = (startTimestamp, endTimestamp) => {
+    dispatch({type: STORE_ACTIONS.UPDATE_SELECT_DATE, payload: [startTimestamp, endTimestamp]})
   };
 
   const getWidthDiff = () => {
@@ -118,6 +134,7 @@ const DaySelector = ({ selectedDate, setSelectedDate }) => {
   };
 
   useEffect(() => {
+    // Todo: use react-use useWindowResize
     const handleResizing = () => {
       const mobileMode = getWidthDiff() > 0;
       setIsSmallScreen(mobileMode);
@@ -166,15 +183,15 @@ const DaySelector = ({ selectedDate, setSelectedDate }) => {
           ref={contentRef}
           style={{ transform: `translateX(${-1 * transX}px)` }}
         >
-          {days.map(day => (
+          {daysMap.map(([tag, start, end]) => (
             <Chip
-              key={day}
+              key={tag}
               className={styles.dayItem}
-              color={day === selectedDate ? 'primary' : 'default'}
+              color={start === startTimestamp ? 'primary' : 'default'}
               clickable
-              label={day}
-              avatar={<Avatar>{day[0]}</Avatar>}
-              onClick={() => switchSelectedDay(day)}
+              label={tag}
+              avatar={<Avatar>{tag[0]}</Avatar>}
+              onClick={() => switchSelectedDay(start, end)}
             ></Chip>
           ))}
         </Box>

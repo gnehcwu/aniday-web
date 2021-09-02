@@ -1,4 +1,5 @@
 import makeStore from './makeStore';
+import { getUnixTime, startOfDay, endOfDay } from 'date-fns';
 
 const STORE_ACTIONS = {
   UPDATE_FILTER: 'update-filter',
@@ -14,16 +15,21 @@ function reducer(state, action) {
       const { section } = action.payload;
       return { ...state, section };
     case STORE_ACTIONS.UPDATE_SELECT_DATE:
-      return { ...state, selectedDate: action.payload.selectedDate };
+      const [startTimestamp, endTimestamp] = action.payload;
+      return { ...state,  startTimestamp, endTimestamp};
     default:
       return state;
   }
 }
 
-const [GlobalProvider, useGlobal, useGlobalDispatch] = makeStore(reducer, {
+const [StoreProvider, useStore, useStoreDispatch] = makeStore(reducer, {
   section: 'airing',
   filter: '',
-  selectedDate: 'All',
+  startTimestamp: getUnixTime(startOfDay(new Date())),
+  endTimestamp: getUnixTime(endOfDay(new Date())),
+  animeList: [],
+  tba: [],
+  today: new Date()
 });
 
-export { STORE_ACTIONS, GlobalProvider, useGlobal, useGlobalDispatch };
+export { STORE_ACTIONS, StoreProvider, useStore, useStoreDispatch };

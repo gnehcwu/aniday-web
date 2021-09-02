@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import fetchAiring from '../services/fetchAiring';
 import fetchTba from '../services/fetchTba';
 
