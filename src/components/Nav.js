@@ -23,18 +23,29 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     gridTemplateRows: 'repeat(5, max-content)',
     rowGap: `${theme.spacing(3)}px`,
-    paddingLeft: theme.spacing(3.25),
-    paddingRight: theme.spacing(7.85),
+    paddingLeft: `${theme.spacing(3.25)}px`,
+    paddingRight: `${theme.spacing(7.85)}px`,
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      padding: 0,
+    },
   },
 
   navItem: {
     display: 'grid',
     gridTemplateColumns: 'max-content auto',
     alignItems: 'center',
-    columnGap: theme.spacing(1.5),
+    columnGap: `${theme.spacing(1.5)}px`,
     padding: theme.spacing(1.2, 3.1, 1.2, 1.3),
+    borderRadius: `${theme.spacing(1.5)}px`,
+    [theme.breakpoints.down('sm')]: {
+      padding: `${theme.spacing(1)}px`,
+      borderRadius: `${theme.spacing(1)}px`,
+      columnGap: `${theme.spacing(0.5)}px`,
+    },
     width: 'max-content',
-    borderRadius: theme.spacing(1.5),
     transition: 'background cubic-bezier(0.3, 0.55, 0.1, 1) 0.2s',
     outline: 'none',
     cursor: 'pointer',
@@ -51,6 +62,9 @@ const useStyles = makeStyles(theme => ({
 
   iconHolder: {
     padding: theme.spacing(1.5),
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+    },
     gridColumn: '1/2',
     width: 'max-content',
     borderRadius: theme.spacing(1.5),
@@ -66,7 +80,13 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: '0.1em',
     fontWeight: 'bolder',
     fontSize: '1.2rem',
-    userSelect: 'none'
+    userSelect: 'none',
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.75rem',
+      lineHeight: '0.75rem',
+      fontWeight: 'normal',
+    },
   },
 
   navIcon: {
@@ -90,10 +110,14 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'none',
       color: 'rgb(65, 107, 208)',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 
   infoIcon: {
-    marginRight: theme.spacing(0.7),
+    marginRight: `${theme.spacing(0.7)}px`,
     marginTop: '-2px',
   },
 
@@ -102,7 +126,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     gridTemplateColumns: 'repeat(3, max-content)',
-    padding: theme.spacing(1),
+    padding: `${theme.spacing(1)}px`,
   },
 
   github: {

@@ -17,43 +17,83 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
 
     display: 'grid',
-    gridTemplateColumns: 'max-content auto',
+    gridTemplateAreas: '"nav content"',
+    gridTemplateColumns: 'min-content 1fr',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateAreas: `"content"
+                          "nav"`,
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '1fr 0px',
+      rowGap: 0,
+    },
     rowGap: '8px',
   },
 
   navArea: {
-    gridColumn: '1/2',
-
+    gridArea: 'nav',
     display: 'grid',
+    gridTemplateAreas: `"logo"
+    "nav"`,
     gridTemplateRows: '180px auto',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateAreas: '"logo nav"',
+      gridTemplateColumns: 'min-content 1fr',
+      gridTemplateRows: '1fr',
+
+      position: 'relative',
+      zIndex: 1,
+      transform: `translateY(-125px)`,
+      background: 'rgb(48, 48, 48)',
+      padding: `${theme.spacing(1)}px`,
+      borderRadius: `1000px`,
+      height: 'min-content',
+      width: '85%',
+      margin: '0 auto',
+    },
   },
 
   logo: {
-    gridRow: '1/2',
+    gridArea: 'logo',
     whiteSpace: 'nowrap',
     display: 'grid',
     placeContent: 'center',
     rowGap: `${theme.spacing(2)}px`,
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(0, 2),
+    },
   },
 
   logoIcon: {
     width: '57px',
+    [theme.breakpoints.down('sm')]: {
+      width: '28px',
+    },
   },
 
   logoText: {
     textTransform: 'uppercase',
     fontWeight: '900',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 
   nav: {
-    gridRow: '2/3',
+    gridArea: 'nav',
     paddingTop: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: 0,
+    },
   },
 
   filterArea: {
     gridRow: '1/2',
     display: 'grid',
     padding: theme.spacing(2, 3, 1, 3),
+
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1, 2, 0)
+    },
 
     position: 'sticky',
     top: '0',
@@ -62,7 +102,9 @@ const useStyles = makeStyles(theme => ({
   },
 
   contentArea: {
-    gridColumn: '2/3',
+    // gridColumn: '2/3',
+    gridArea: 'content',
+
     position: 'relative',
     overflowY: 'overlay',
     scrollBehavior: 'smooth',
@@ -73,6 +115,10 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     padding: theme.spacing(2, 5),
+
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1, 1)
+    }
   },
 }));
 

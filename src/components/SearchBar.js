@@ -6,6 +6,10 @@ import SearchIcon from '@material-ui/icons/Search';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(0, 3, 1, 3),
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+      paddingBottom: `${theme.spacing(0.5)}px`,
+    }
   },
 
   search: {

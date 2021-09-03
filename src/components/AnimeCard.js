@@ -160,7 +160,7 @@ const AnimeCard = ({ anime, episode }) => {
           </Typography>
         </Box>
         <Box className={styles.footer}>
-          {anime.genres.slice(0, 3).map(tag => (
+          {anime.genres.slice(0, 2).map(tag => (
             <Chip key={tag} size="small" className={styles.tag} label={tag}></Chip>
           ))}
         </Box>

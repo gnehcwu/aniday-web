@@ -9,7 +9,7 @@ import { useStore } from '../states/useStore';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(min(375px, 100%), 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
     padding: theme.spacing(1),
     rowGap: `${theme.spacing(5)}px`,
     columnGap: `${theme.spacing(4)}px`,
@@ -27,9 +27,7 @@ const AiringList = () => {
     const data = animeList.get(startTimestamp) || [];
 
     if (isLoading) return data;
-    return data.filter(item =>
-      item.media.genres.some(genre => filter === '' || genre.includes(filter))
-    );
+    return data.filter(item => item.media.genres.some(genre => filter === '' || genre.includes(filter)));
   };
 
   return isLoading ? (

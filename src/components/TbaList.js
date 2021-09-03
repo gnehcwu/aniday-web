@@ -9,7 +9,7 @@ import { useStore } from '../states/useStore';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(min(375px, 100%), 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
     padding: theme.spacing(1),
     rowGap: `${theme.spacing(5)}px`,
     columnGap: `${theme.spacing(4)}px`,

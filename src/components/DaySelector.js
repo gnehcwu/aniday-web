@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'grid',
     justifyContent: 'center',
+    overflowX: 'auto',
+    'scrollbar-width': 'none',
+
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
 
   daysContainer: {
