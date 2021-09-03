@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, IconButton, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(0, 3, 1, 3),
     [theme.breakpoints.down('sm')]: {
       padding: 0,
-      paddingBottom: `${theme.spacing(0.5)}px`,
-    }
+    },
   },
 
   search: {
@@ -30,11 +30,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchBar = ({ filter, setFilter }) => {
+const Filter = () => {
   const styles = useStyles();
+  const inputRef = useRef(null);
+  const { filter } = useStore();
+  const dispatch = useStoreDispatch();
 
-  const filterAnime = event => {
-    setFilter(event.target.value);
+  const filterAnime = _ => {
+    dispatch({ type: STORE_ACTIONS.UPDATE_FILTER, payload: inputRef.current.value.toLowerCase() });
   };
 
   return (
@@ -45,9 +48,10 @@ const SearchBar = ({ filter, setFilter }) => {
         </IconButton>
         <InputBase
           className={styles.input}
-          value={filter}
+          defaultValue={filter}
           placeholder="Filter anime..."
           inputProps={{ 'aria-label': 'Filter anime' }}
+          inputRef={inputRef}
           onChange={filterAnime}
         />
       </Paper>
@@ -55,4 +59,4 @@ const SearchBar = ({ filter, setFilter }) => {
   );
 };
 
-export default SearchBar;
+export default Filter;

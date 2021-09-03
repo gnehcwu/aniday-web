@@ -27,7 +27,17 @@ const AiringList = () => {
     const data = animeList.get(startTimestamp) || [];
 
     if (isLoading) return data;
-    return data.filter(item => item.media.genres.some(genre => filter === '' || genre.includes(filter)));
+    if (!filter || filter === '') return data;
+    return data.filter(item => {
+      const {
+        media: { genres, title, description },
+      } = item;
+      return (
+        genres.some(genre => genre.includes(filter)) ||
+        description?.toLowerCase().includes(filter) ||
+        title.romaji?.toLowerCase().includes(filter)
+      );
+    });
   };
 
   return isLoading ? (

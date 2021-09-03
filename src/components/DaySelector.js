@@ -4,12 +4,10 @@ import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { startOfWeek, addDays, getUnixTime } from 'date-fns';
-import { STORE_ACTIONS, useStore, useStoreDispatch} from '../states/useStore';
-
+import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(1, 0),
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
@@ -92,9 +90,9 @@ const useStyles = makeStyles(theme => ({
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 function getDayMap(today) {
-  const weekStart = startOfWeek(today, { weekStartsOn: 1})
+  const weekStart = startOfWeek(today, { weekStartsOn: 1 });
   const daysMap = days.map((value, index) => {
-    return [value, getUnixTime(addDays(weekStart, index)), getUnixTime(addDays(weekStart, index + 1)) - 1]
+    return [value, getUnixTime(addDays(weekStart, index)), getUnixTime(addDays(weekStart, index + 1)) - 1];
   });
 
   return daysMap;
@@ -112,7 +110,7 @@ const DaySelector = () => {
   const daysMap = getDayMap(today);
 
   const switchSelectedDay = (startTimestamp, endTimestamp) => {
-    dispatch({type: STORE_ACTIONS.UPDATE_SELECT_DATE, payload: [startTimestamp, endTimestamp]})
+    dispatch({ type: STORE_ACTIONS.UPDATE_SELECT_DATE, payload: [startTimestamp, endTimestamp] });
   };
 
   const getWidthDiff = () => {

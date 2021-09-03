@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Container, Box, Typography } from '@material-ui/core';
-import SearchBar from './components/SearchBar';
+import Filter from './components/Filter';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import { useSetting } from './states/useSettings';
@@ -17,20 +17,25 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
 
     display: 'grid',
-    gridTemplateAreas: '"nav content"',
+    gridTemplateAreas: `"nav filter"
+    "nav content"`,
     gridTemplateColumns: 'min-content 1fr',
+    gridTemplateRows: 'min-content 1fr',
     [theme.breakpoints.down('sm')]: {
-      gridTemplateAreas: `"content"
-                          "nav"`,
+      gridTemplateAreas: `"filter"
+                          "content"`,
       gridTemplateColumns: '1fr',
-      gridTemplateRows: '1fr 0px',
+      gridTemplateRows: 'min-content 1fr',
       rowGap: 0,
+      height: '100%',
+      minHeight: '90vh',
     },
     rowGap: '8px',
   },
 
   navArea: {
     gridArea: 'nav',
+    opacity: 0.95,
     display: 'grid',
     gridTemplateAreas: `"logo"
     "nav"`,
@@ -39,16 +44,18 @@ const useStyles = makeStyles(theme => ({
       gridTemplateAreas: '"logo nav"',
       gridTemplateColumns: 'min-content 1fr',
       gridTemplateRows: '1fr',
+      gap: `${theme.spacing(2)}px`,
 
-      position: 'relative',
+      position: 'fixed',
       zIndex: 1,
-      transform: `translateY(-125px)`,
       background: 'rgb(48, 48, 48)',
-      padding: `${theme.spacing(1)}px`,
+      padding: theme.spacing(1, 2),
       borderRadius: `1000px`,
-      height: 'min-content',
       width: '85%',
       margin: '0 auto',
+      bottom: 0,
+      left: '50%',
+      transform: 'translateX(-50%) translateY(-25px)',
     },
   },
 
@@ -58,9 +65,6 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     placeContent: 'center',
     rowGap: `${theme.spacing(2)}px`,
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(0, 2),
-    },
   },
 
   logoIcon: {
@@ -87,22 +91,20 @@ const useStyles = makeStyles(theme => ({
   },
 
   filterArea: {
-    gridRow: '1/2',
+    gridArea: 'filter',
     display: 'grid',
-    padding: theme.spacing(2, 3, 1, 3),
-
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1, 2, 0)
-    },
-
-    position: 'sticky',
+    padding: theme.spacing(1),
+    rowGap: `${theme.spacing(1)}px`,
     top: '0',
     zIndex: '10',
-    opacity: '0.98',
+    opacity: '0.97',
+
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+    },
   },
 
   contentArea: {
-    // gridColumn: '2/3',
     gridArea: 'content',
 
     position: 'relative',
@@ -117,8 +119,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 5),
 
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1, 1)
-    }
+      padding: theme.spacing(1, 2),
+      marginTop: '100px',
+    },
   },
 }));
 
@@ -167,11 +170,11 @@ function App() {
             <Nav />
           </Box>
         </Box>
+        <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
+          <Filter />
+          {isAiring ? <DaySelector /> : null}
+        </Box>
         <Box className={styles.contentArea} style={{ background: contentBg }}>
-          <Box className={styles.filterArea} style={{ background: theme.palette.background.default }}>
-            <SearchBar />
-            {isAiring ? <DaySelector /> : null}
-          </Box>
           <Box className={styles.content}>
             <ContentComp />
           </Box>
