@@ -10,6 +10,10 @@ Aniday is a webapp built with [React](https://reactjs.org), to present a simply 
   <img src="https://github.com/gnehcwu/aniday-web/blob/master/aniday-screenshot.png" alt="Anime day screenshot" title="Anime day screenshot" />
 </p>
 
+<p align="center">
+  <img src="https://github.com/gnehcwu/aniday-web/blob/master/aniday-responsive.png" alt="Anime day screenshot" title="Anime day screenshot" />
+</p>
+
 👉 &nbsp;Live site: https://anime-day.netlify.app
 
 ### Run locally
