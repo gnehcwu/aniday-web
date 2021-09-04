@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSetting } from '../states/useSetting';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import App from './App';
 
 const ThemeWrapper = () => {
@@ -8,7 +8,7 @@ const ThemeWrapper = () => {
 
   const theme = useMemo(
     () =>
-      createMuiTheme({
+      createTheme({
         typography: {
           fontFamily: `Overpass, -apple-system, BlinkMacSystemFont, sans-serif,
         "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";`,
