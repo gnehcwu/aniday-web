@@ -5,13 +5,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(0, 3, 1, 3),
-    [theme.breakpoints.down('sm')]: {
-      padding: 0,
-    },
-  },
-
   search: {
     display: 'flex',
     alignItems: 'center',

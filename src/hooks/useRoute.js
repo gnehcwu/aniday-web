@@ -4,12 +4,12 @@ import TbaList from '../components/TbaList';
 
 const mappings = {
   airing: AiringList,
-  setting: Settings,
   tba: TbaList,
+  setting: Settings,
 };
 
 const useRoute = section => {
-  return [mappings[section], section === 'airing'];
+  return mappings[section];
 };
 
 export default useRoute;

@@ -11,11 +11,22 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateColumns: '150px auto',
     overflow: 'hidden',
+    borderRadius: `${theme.spacing(1)}px`,
+    [theme.breakpoints.down('sm')]: {
+      borderRadius: `${theme.spacing(2)}px`,
+    },
   },
 
   header: {
     gridColumn: '1/2',
     position: 'relative',
+    borderTopLeftRadius: `${theme.spacing(1)}px`,
+    borderBottomLeftRadius: `${theme.spacing(1)}px`,
+    [theme.breakpoints.down('sm')]: {
+      borderTopLeftRadius: `${theme.spacing(2)}px`,
+      borderBottomLeftRadius: `${theme.spacing(2)}px`,
+    },
+    overflow: 'hidden',
   },
 
   details: {
@@ -115,7 +126,7 @@ const useStyles = makeStyles(theme => ({
 
     display: 'grid',
     gridTemplateColumns: 'auto auto',
-    columnGap: theme.spacing(0.5),
+    columnGap: `${theme.spacing(0.5)}px`,
     alignContent: 'center',
     alignSelf: 'start',
   },

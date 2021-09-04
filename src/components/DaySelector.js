@@ -126,7 +126,7 @@ const DaySelector = () => {
     if (!isSmallScreen) return;
 
     let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
-    let cur = transX + sign * 200; // Magic number for scrolling unit size: 200px
+    let cur = transX + sign * 50; // Magic number for scrolling unit size: 200px
     const widthDiff = getWidthDiff();
     if (cur < 0) {
       cur = 0;
@@ -138,7 +138,6 @@ const DaySelector = () => {
   };
 
   useEffect(() => {
-    // Todo: use react-use useWindowResize
     const handleResizing = () => {
       const mobileMode = getWidthDiff() > 0;
       setIsSmallScreen(mobileMode);

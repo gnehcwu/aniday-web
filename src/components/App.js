@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { Container, Box, Typography } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Filter from './Filter';
 import Nav from './Nav';
 import DaySelector from './DaySelector';
@@ -32,7 +33,6 @@ const useStyles = makeStyles(theme => {
         height: '100%',
         minHeight: '100vh',
       },
-      rowGap: '8px',
     },
 
     navArea: {
@@ -123,7 +123,6 @@ const useStyles = makeStyles(theme => {
 
       [theme.breakpoints.down('sm')]: {
         padding: theme.spacing(1, 2),
-        marginTop: '100px',
       },
     },
   };
@@ -136,7 +135,31 @@ function App() {
   const theme = useTheme();
   const styles = useStyles(theme);
 
-  const [ContentComp, isAiring] = useRoute(section);
+  const ContentComp = useRoute(section);
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
+  // Enhance responsiveness
+  useEffect(() => {
+    const { style } = document.body;
+    style.background = theme.palette.background.default;
+
+    if (matches) {
+      style.paddingTop = { airing: '100px', tba: '60px' }[section] || 0;
+    } else {
+      style.paddingTop = 0;
+    }
+  }, [isDarkMode, theme.palette.background.default, section, matches]);
+
+  const renderFilterArea = () => {
+    if (section === 'setting') return null;
+
+    return (
+      <Box className={styles.filterArea}>
+        <Filter />
+        {section === 'airing' ? <DaySelector /> : null}
+      </Box>
+    );
+  };
 
   return (
     <Container
@@ -155,10 +178,7 @@ function App() {
           <Nav />
         </Box>
       </Box>
-      <Box className={styles.filterArea}>
-        <Filter />
-        {isAiring ? <DaySelector /> : null}
-      </Box>
+      {renderFilterArea()}
       <Box className={styles.content}>
         <ContentComp />
       </Box>
