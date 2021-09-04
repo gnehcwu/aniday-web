@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { SETTING_ACTIONS, useSetting, useSettingDispatch } from '../states/useSettings';
+import { SETTING_ACTIONS, useSetting, useSettingDispatch } from '../states/useSetting';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { green } from '@material-ui/core/colors';
 
@@ -55,7 +55,7 @@ const Settings = () => {
   const styles = useStyles(theme);
   const dispatch = useSettingDispatch();
   const { isDarkMode, lang } = useSetting();
-  
+
   const toggleTheme = mode => {
     dispatch({ type: SETTING_ACTIONS.UPDATE_THEME, payload: mode });
   };
@@ -72,7 +72,11 @@ const Settings = () => {
         </Typography>
         <Box className={styles.settingRecords}>
           {themeModes.map(({ title }) => (
-            <Paper key={title} className={styles.settingRecord} onClick={() => toggleTheme(title === 'Dark')}>
+            <Paper
+              key={title}
+              className={styles.settingRecord}
+              onClick={() => toggleTheme(title === 'Dark')}
+            >
               <Typography variant="h6" className={styles.recordTitle}>
                 {title}
               </Typography>

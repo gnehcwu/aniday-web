@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { SettingProvider } from './states/useSettings';
-import { StoreProvider } from './states/useStore'
+import { SettingProvider } from './states/useSetting';
+import { StoreProvider } from './states/useStore';
+import ThemeWrapper from './components/ThemeWrapper';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <SettingProvider>
       <StoreProvider>
-        <App />
+        <ThemeWrapper />
       </StoreProvider>
     </SettingProvider>
   </React.StrictMode>,

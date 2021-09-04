@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     display: 'grid',
     gridTemplateRows: 'auto max-content',
-    background: theme.palette.background.default,
   },
 
   navHolder: {
@@ -28,8 +27,11 @@ const useStyles = makeStyles(theme => ({
 
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
-      justifyContent: 'space-between',
+      gap: `${theme.spacing(3)}px`,
       padding: 0,
+    },
+    [theme.breakpoints.down('xs')]: {
+      gap: `${theme.spacing(2)}px`,
     },
   },
 
