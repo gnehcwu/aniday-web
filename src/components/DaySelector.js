@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { startOfWeek, addDays, getUnixTime } from 'date-fns';
+import { useWindowSize } from 'react-use';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Chip, Avatar, IconButton } from '@material-ui/core';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { startOfWeek, addDays, getUnixTime } from 'date-fns';
 import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
 const useStyles = makeStyles(theme => ({
@@ -20,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     width: '100%',
     display: 'grid',
-    justifyContent: 'center',
     overflowX: 'auto',
+    touchAction: 'pan-x',
     'scrollbar-width': 'none',
 
     '&::-webkit-scrollbar': {
@@ -30,11 +31,6 @@ const useStyles = makeStyles(theme => ({
   },
 
   daysContainer: {
-    // display: 'grid',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // gridTemplateColumns: 'repeat(auto-fit, minmax(max-content, 0))',
-    // columnGap: '12px',
     display: 'inline-block',
     transitionDuration: '0.15s',
     transitionTimingFunction: 'cubic-bezier(0.05, 0, 0, 1)',
@@ -106,6 +102,7 @@ const DaySelector = () => {
   const contentRef = useRef(null);
   const { today, startTimestamp } = useStore();
   const dispatch = useStoreDispatch();
+  const { width } = useWindowSize();
 
   const daysMap = getDayMap(today);
 
@@ -120,22 +117,25 @@ const DaySelector = () => {
     return 0;
   };
 
-  const scroll = (event, direction) => {
-    event.preventDefault();
+  const scroll = useCallback(
+    (event, direction) => {
+      event.preventDefault();
 
-    if (!isSmallScreen) return;
+      if (!isSmallScreen) return;
 
-    let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
-    let cur = transX + sign * 50; // Magic number for scrolling unit size: 200px
-    const widthDiff = getWidthDiff();
-    if (cur < 0) {
-      cur = 0;
-    } else if (cur > widthDiff) {
-      cur = widthDiff;
-    }
+      let sign = direction === undefined ? Math.sign(event.deltaX) : direction === 'left' ? -1 : 1;
+      let cur = transX + sign * 100; // Magic number for scrolling unit size: 200px
+      const widthDiff = getWidthDiff();
+      if (cur < 0) {
+        cur = 0;
+      } else if (cur > widthDiff) {
+        cur = widthDiff;
+      }
 
-    setTransX(cur);
-  };
+      setTransX(cur);
+    },
+    [isSmallScreen, transX]
+  );
 
   useEffect(() => {
     const handleResizing = () => {
@@ -150,13 +150,24 @@ const DaySelector = () => {
     handleResizing();
 
     const contentEle = contentRef.current;
-    contentEle.addEventListener('wheel', scroll);
+    contentEle.addEventListener('wheel', scroll, false);
 
     return () => {
       window.removeEventListener('resize', handleResizing);
       contentEle.removeEventListener('wheel', scroll);
     };
-  });
+  }, [width, isSmallScreen, scroll]);
+
+  useEffect(() => {
+    const selectedDay = contentRef.current.querySelector(`.${styles.dayItem}[aria-checked="true"]`);
+    let current = selectedDay.previousElementSibling;
+    let transX = 0;
+    while (current) {
+      transX += current.clientWidth;
+      current = current.previousElementSibling;
+    }
+    setTransX(Math.min(transX, getWidthDiff()));
+  }, [today, styles.dayItem, width]);
 
   const getNavIconStatus = direction => {
     const widthDiff = getWidthDiff();
@@ -191,6 +202,7 @@ const DaySelector = () => {
               key={tag}
               className={styles.dayItem}
               color={start === startTimestamp ? 'primary' : 'default'}
+              aria-checked={start === startTimestamp}
               clickable
               label={tag}
               avatar={<Avatar>{tag[0]}</Avatar>}

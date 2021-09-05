@@ -3,8 +3,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import useRoute, { navItems, NavLink } from '../hooks/useRoute';
 import clsx from 'clsx';
-import { navItems, NavLink } from '../hooks/useRoute';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -138,11 +138,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Nav = ({ current }) => {
+const Nav = () => {
   const theme = useTheme();
   const styles = useStyles(theme);
+  const { path } = useRoute();
 
-  const checkSelected = value => current === value;
+  const checkSelected = value => path === value;
 
   return (
     <Box className={styles.root}>
@@ -152,7 +153,7 @@ const Nav = ({ current }) => {
             <Paper
               className={clsx(styles.navItem, checkSelected(value) && styles.selected)}
               tabIndex="0"
-              elevation={current === value ? 4 : 0}
+              elevation={path === value ? 4 : 0}
             >
               <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 1 : 3}>
                 <NavIcon className={styles.navIcon} />

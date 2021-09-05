@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { useSearchParam, useLocation } from 'react-use';
 import AiringList from '../components/AiringList';
 import TbaList from '../components/TbaList';
 import Settings from '../components/Settings';
-import { useSearchParam, useLocation } from 'react-use';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -37,10 +38,18 @@ const NavLink = ({ value, children }) => {
 const useRoute = () => {
   const filterParam = useSearchParam('filter');
   const location = useLocation();
-  const path = (location || { pathname: 'airing' })['pathname'].replace('/', '');
+  const [path, setPath] = useState('airing');
+
+  const getPath = () => {
+    return location.pathname.replace('/', '') || 'airing';
+  };
+
+  useEffect(() => {
+    setPath(location.pathname.replace('/', '') || 'airing');
+  }, [location]);
 
   const updateQueryParam = filter => {
-    window.history.pushState({}, '', `${path}?filter=${filter}`);
+    window.history.pushState({}, '', `${getPath()}?filter=${filter}`);
   };
 
   const getRouterApp = () => {
@@ -55,7 +64,7 @@ const useRoute = () => {
         <Route path="/setting">
           <Settings />
         </Route>
-        <Redirect exact from="*" to="airing" />
+        <Redirect from="*" to="airing" />
       </Switch>
     );
   };

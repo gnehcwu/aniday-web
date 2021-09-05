@@ -175,7 +175,7 @@ function App() {
             </Typography>
           </Box>
           <Box className={styles.nav}>
-            <Nav current={path} />
+            <Nav />
           </Box>
         </Box>
         {renderFilterArea()}
