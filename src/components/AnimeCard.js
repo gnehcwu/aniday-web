@@ -141,7 +141,7 @@ const AnimeCard = ({ anime, episode }) => {
         <img alt="cover" className={styles.cover} src={anime.coverImage.extraLarge} />
         <Box className={styles.overlay}>
           <Typography variant="subtitle2" className={styles.title}>
-            {anime.title.romaji}
+            {anime.title.native}
           </Typography>
           <Typography variant="caption" className={styles.studio}>
             {anime.studios && anime.studios.nodes[0] && anime.studios.nodes[0].name}
@@ -167,7 +167,7 @@ const AnimeCard = ({ anime, episode }) => {
         </Box>
         <Box className={styles.description}>
           <Typography variant="caption" variantMapping={{ caption: 'p' }} title={anime.description}>
-            <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title.romaji }}></span>
+            <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title.native }}></span>
           </Typography>
         </Box>
         <Box className={styles.footer}>

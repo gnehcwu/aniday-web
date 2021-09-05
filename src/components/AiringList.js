@@ -5,6 +5,8 @@ import Loading from './Loading';
 import AnimeCard from './AnimeCard';
 import useAnimeList from '../hooks/useAnime';
 import { useStore } from '../states/useStore';
+import useRoute from '../hooks/useRoute';
+import useFilterAnime from '../hooks/useFilterAnime';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +21,9 @@ const useStyles = makeStyles(theme => ({
 const AiringList = () => {
   const styles = useStyles();
 
-  const { isLoading, startTimestamp, animeList, filter } = useStore();
+  const { isLoading, startTimestamp, animeList } = useStore();
+  const { filterParam } = useRoute();
+  const filterAnime = useFilterAnime();
 
   useAnimeList();
 
@@ -27,17 +31,7 @@ const AiringList = () => {
     const data = animeList.get(startTimestamp) || [];
 
     if (isLoading) return data;
-    if (!filter || filter === '') return data;
-    return data.filter(item => {
-      const {
-        media: { genres, title, description },
-      } = item;
-      return (
-        genres.some(genre => genre.includes(filter)) ||
-        description?.toLowerCase().includes(filter) ||
-        title.romaji?.toLowerCase().includes(filter)
-      );
-    });
+    return filterAnime(data, filterParam);
   };
 
   return isLoading ? (

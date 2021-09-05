@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper, IconButton, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
+import useRoute from '../hooks/useRoute';
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -26,12 +26,15 @@ const useStyles = makeStyles(theme => ({
 const Filter = () => {
   const styles = useStyles();
   const inputRef = useRef(null);
-  const { filter } = useStore();
-  const dispatch = useStoreDispatch();
+  const { updateQueryParam, filterParam, path } = useRoute();
 
   const filterAnime = _ => {
-    dispatch({ type: STORE_ACTIONS.UPDATE_FILTER, payload: inputRef.current.value.toLowerCase() });
+    updateQueryParam(inputRef.current.value.toLowerCase());
   };
+
+  useEffect(() => {
+    inputRef.current.value = filterParam;
+  }, [path, filterParam]);
 
   return (
     <Box className={styles.root}>
@@ -41,7 +44,7 @@ const Filter = () => {
         </IconButton>
         <InputBase
           className={styles.input}
-          defaultValue={filter}
+          defaultValue={filterParam}
           placeholder="Filter anime..."
           inputProps={{ 'aria-label': 'Filter anime' }}
           inputRef={inputRef}

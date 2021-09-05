@@ -8,7 +8,7 @@ import DaySelector from './DaySelector';
 import { useSetting } from '../states/useSetting';
 import { ReactComponent as Logo } from '../logo.svg';
 import useRoute from '../hooks/useRoute';
-import { useStore } from '../states/useStore';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -130,13 +130,12 @@ const useStyles = makeStyles(theme => {
 
 function App() {
   const { isDarkMode } = useSetting();
-  const { section } = useStore();
 
   const theme = useTheme();
   const styles = useStyles(theme);
 
-  const ContentComp = useRoute(section);
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const { getRouterApp, path } = useRoute();
 
   // Enhance responsiveness
   useEffect(() => {
@@ -144,45 +143,45 @@ function App() {
     style.background = theme.palette.background.default;
 
     if (matches) {
-      style.paddingTop = { airing: '100px', tba: '60px' }[section] || 0;
+      style.paddingTop = { airing: '100px', tba: '60px' }[path] || 0;
     } else {
       style.paddingTop = 0;
     }
-  }, [isDarkMode, theme.palette.background.default, section, matches]);
+  }, [isDarkMode, theme.palette.background.default, path, matches]);
 
   const renderFilterArea = () => {
-    if (section === 'setting') return null;
+    if (path === 'setting') return null;
 
     return (
       <Box className={styles.filterArea}>
         <Filter />
-        {section === 'airing' ? <DaySelector /> : null}
+        {path === 'airing' ? <DaySelector /> : null}
       </Box>
     );
   };
 
   return (
-    <Container
-      maxWidth={false}
-      className={styles.app}
-      style={{ colorScheme: isDarkMode ? 'dark' : 'light' }}
-    >
-      <Box className={styles.navArea}>
-        <Box className={styles.logo}>
-          <Logo className={styles.logoIcon} alt="logo" />
-          <Typography color="textPrimary" className={styles.logoText}>
-            Anime Day
-          </Typography>
+    <Router>
+      <Container
+        maxWidth={false}
+        className={styles.app}
+        style={{ colorScheme: isDarkMode ? 'dark' : 'light' }}
+      >
+        <Box className={styles.navArea}>
+          <Box className={styles.logo}>
+            <Logo className={styles.logoIcon} alt="logo" />
+            <Typography color="textPrimary" className={styles.logoText}>
+              Anime Day
+            </Typography>
+          </Box>
+          <Box className={styles.nav}>
+            <Nav current={path} />
+          </Box>
         </Box>
-        <Box className={styles.nav}>
-          <Nav />
-        </Box>
-      </Box>
-      {renderFilterArea()}
-      <Box className={styles.content}>
-        <ContentComp />
-      </Box>
-    </Container>
+        {renderFilterArea()}
+        <Box className={styles.content}>{getRouterApp()}</Box>
+      </Container>
+    </Router>
   );
 }
 

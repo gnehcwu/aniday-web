@@ -1,13 +1,10 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Typography, Paper, IconButton } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import UpdateIcon from '@material-ui/icons/Update';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import clsx from 'clsx';
-import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
+import { navItems, NavLink } from '../hooks/useRoute';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -141,54 +138,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const navItems = [
-  {
-    icon: EventAvailableIcon,
-    label: 'Airing',
-    value: 'airing',
-  },
-  {
-    icon: UpdateIcon,
-    label: 'TBA',
-    value: 'tba',
-  },
-  {
-    icon: SettingsIcon,
-    label: 'Settings',
-    value: 'setting',
-  },
-];
-
-const Nav = () => {
+const Nav = ({ current }) => {
   const theme = useTheme();
   const styles = useStyles(theme);
-  const { section } = useStore();
-  const dispatch = useStoreDispatch();
 
-  const switchNavItem = navItem => {
-    dispatch({ type: STORE_ACTIONS.UPDATE_SECTION, payload: navItem });
-  };
-
-  const checkSelected = value => section === value;
+  const checkSelected = value => current === value;
 
   return (
     <Box className={styles.root}>
       <Box className={styles.navHolder}>
         {navItems.map(({ icon: NavIcon, label, value }) => (
-          <Paper
-            key={label}
-            className={clsx(styles.navItem, checkSelected(value) && styles.selected)}
-            tabIndex="0"
-            onClick={() => switchNavItem(value)}
-            elevation={checkSelected(value) ? 4 : 0}
-          >
-            <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 1 : 3}>
-              <NavIcon className={styles.navIcon} />
+          <NavLink key={label} value={value}>
+            <Paper
+              className={clsx(styles.navItem, checkSelected(value) && styles.selected)}
+              tabIndex="0"
+              elevation={current === value ? 4 : 0}
+            >
+              <Paper className={styles.iconHolder} elevation={checkSelected(value) ? 1 : 3}>
+                <NavIcon className={styles.navIcon} />
+              </Paper>
+              <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
+                {label}
+              </Typography>
             </Paper>
-            <Typography variant="subtitle1" color="textPrimary" className={styles.navLabel}>
-              {label}
-            </Typography>
-          </Paper>
+          </NavLink>
         ))}
       </Box>
       <Paper className={styles.footer} elevation={0}>

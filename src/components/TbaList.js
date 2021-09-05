@@ -5,6 +5,8 @@ import Loading from './Loading';
 import AnimeCard from './AnimeCard';
 import useAnimeList from '../hooks/useAnime';
 import { useStore } from '../states/useStore';
+import useRoute from '../hooks/useRoute';
+import useFilterAnime from '../hooks/useFilterAnime';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,13 +23,21 @@ const TbaList = () => {
 
   const { isLoading, tbaList } = useStore();
 
+  const { filterParam } = useRoute();
+  const filterAnime = useFilterAnime();
+
   useAnimeList();
+
+  const getFilteredData = () => {
+    if (isLoading) return tbaList;
+    return filterAnime(tbaList, filterParam);
+  };
 
   return isLoading ? (
     <Loading />
   ) : (
     <Box className={styles.root}>
-      {tbaList.map(anime => (
+      {getFilteredData().map(anime => (
         <AnimeCard key={anime.id} anime={anime} />
       ))}
     </Box>
