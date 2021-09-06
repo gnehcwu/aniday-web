@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     gridRow: '1/2',
     display: 'grid',
     alignItems: 'center',
-    gridTemplateRows: 'repeat(5, max-content)',
+    gridTemplateRows: 'repeat(3, max-content)',
     rowGap: `${theme.spacing(3)}px`,
     paddingLeft: `${theme.spacing(3.25)}px`,
     paddingRight: `${theme.spacing(7.85)}px`,
@@ -60,9 +60,9 @@ const useStyles = makeStyles(theme => ({
   },
 
   iconHolder: {
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
-      padding: 0,
+      padding: '2px',
     },
     gridColumn: '1/2',
     width: 'max-content',

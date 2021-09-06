@@ -4,6 +4,7 @@ import { Box, Paper, Typography, Chip, IconButton } from '@material-ui/core';
 import MoodOutlined from '@material-ui/icons/MoodOutlined';
 import { green } from '@material-ui/core/colors';
 import LinkIcon from '@material-ui/icons/Link';
+import { useSetting } from '../states/useSetting';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -134,6 +135,7 @@ const useStyles = makeStyles(theme => ({
 
 const AnimeCard = ({ anime, episode }) => {
   const styles = useStyles();
+  const { lang } = useSetting();
 
   return (
     <Paper className={styles.card} elevation={5}>
@@ -141,7 +143,7 @@ const AnimeCard = ({ anime, episode }) => {
         <img alt="cover" className={styles.cover} src={anime.coverImage.extraLarge} />
         <Box className={styles.overlay}>
           <Typography variant="subtitle2" className={styles.title}>
-            {anime.title.native}
+            {anime.title[lang]}
           </Typography>
           <Typography variant="caption" className={styles.studio}>
             {anime.studios && anime.studios.nodes[0] && anime.studios.nodes[0].name}
@@ -167,7 +169,7 @@ const AnimeCard = ({ anime, episode }) => {
         </Box>
         <Box className={styles.description}>
           <Typography variant="caption" variantMapping={{ caption: 'p' }} title={anime.description}>
-            <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title.native }}></span>
+            <span dangerouslySetInnerHTML={{ __html: anime.description || anime.title[lang] }}></span>
           </Typography>
         </Box>
         <Box className={styles.footer}>

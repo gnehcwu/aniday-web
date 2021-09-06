@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
-import { Container, Box, Typography } from '@material-ui/core';
+import { Container, Box } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Filter from './Filter';
 import Nav from './Nav';
@@ -37,11 +37,12 @@ const useStyles = makeStyles(theme => {
 
     navArea: {
       gridArea: 'nav',
-      opacity: 0.95,
       display: 'grid',
       gridTemplateAreas: `"logo"
       "nav"`,
       gridTemplateRows: '180px auto',
+      rowGap: `${theme.spacing(2)}px`,
+      overflowY: 'auto',
       background: theme.palette.background.default,
       [theme.breakpoints.down('sm')]: {
         gridTemplateAreas: '"logo nav"',
@@ -57,9 +58,11 @@ const useStyles = makeStyles(theme => {
         bottom: 0,
         left: '50%',
         transform: 'translateX(-50%) translateY(-25px)',
+        opacity: 0.95,
       },
       [theme.breakpoints.down('xs')]: {
         gap: `${theme.spacing(2)}px`,
+        opacity: 0.95,
       },
     },
 
@@ -72,23 +75,14 @@ const useStyles = makeStyles(theme => {
     },
 
     logoIcon: {
-      width: '57px',
+      width: '67px',
       [theme.breakpoints.down('sm')]: {
         width: '28px',
       },
     },
 
-    logoText: {
-      textTransform: 'uppercase',
-      fontWeight: '900',
-      [theme.breakpoints.down('sm')]: {
-        display: 'none',
-      },
-    },
-
     nav: {
       gridArea: 'nav',
-      paddingTop: theme.spacing(3),
       [theme.breakpoints.down('sm')]: {
         paddingTop: 0,
       },
@@ -169,10 +163,7 @@ function App() {
       >
         <Box className={styles.navArea}>
           <Box className={styles.logo}>
-            <Logo className={styles.logoIcon} alt="logo" />
-            <Typography color="textPrimary" className={styles.logoText}>
-              Anime Day
-            </Typography>
+            <Logo className={styles.logoIcon} alt="logo anime calendar" />
           </Box>
           <Box className={styles.nav}>
             <Nav />
