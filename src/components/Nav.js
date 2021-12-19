@@ -9,6 +9,7 @@ import {
   MenuButton,
   IconButton,
   Tooltip,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, AtSignIcon } from '@chakra-ui/icons';
 import { ReactComponent as Logo } from '../logo.svg';
@@ -19,6 +20,8 @@ export default function Nav() {
   const { lang: currentLang } = useSetting();
 
   const dispatch = useSettingDispatch();
+
+  const logoWidth = useBreakpointValue({ base: 27, md: 41 });
 
   const isCurrent = lang => {
     return lang.toLocaleLowerCase() === currentLang.toLocaleLowerCase();
@@ -31,9 +34,9 @@ export default function Nav() {
   return (
     <Flex direction="row" marginLeft="auto" align="center" width="100%">
       <Flex direction="column" alignItems="center" gap="2">
-        <Logo width="43" sx={{ marginRight: 'auto' }} />
+        <Logo width={logoWidth} sx={{ marginRight: 'auto' }} />
         <Text
-          fontSize={{ base: 'sm', md: 'lg' }}
+          fontSize={{ base: 'xs', md: 'lg' }}
           fontWeight="700"
           bgGradient="linear(to-r, yellow.500, pink.400)"
           bgClip="text"
@@ -41,7 +44,7 @@ export default function Nav() {
           Anime Calendar
         </Text>
       </Flex>
-      <Flex marginLeft="auto" gap={4}>
+      <Flex marginLeft="auto" gap={{ base: 2, md: 4 }}>
         <Tooltip label={`Toggle theme to ${colorMode === 'light' ? 'dark' : 'light'}`}>
           <IconButton
             arial-label="Toggle theme"

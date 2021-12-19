@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, Box } from '@chakra-ui/react';
+import { Container, Grid, GridItem, Box, useBreakpointValue } from '@chakra-ui/react';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import AnimeList from './components/AnimeList';
@@ -6,20 +6,22 @@ import { useColorMode } from '@chakra-ui/react';
 
 export default function App() {
   const { colorMode } = useColorMode();
+  const contentGap = useBreakpointValue({ base: '2', md: '9' });
+
   return (
     <Container
       maxW="1048px"
       height="100vh"
       py={{ base: 4, md: 12 }}
       overflow="hidden"
-      sx={{ display: 'grid', gridTemplateRows: 'min-content 1fr', gap: 9 }}
+      sx={{ display: 'grid', gridTemplateRows: 'min-content 1fr', gap: contentGap }}
     >
-      <Box paddingLeft={1}>
+      <Box paddingLeft={{ base: 0, md: 1 }}>
         <Nav />
       </Box>
       <Grid
         templateColumns={{ base: '1fr', md: 'max-content 1fr' }}
-        gap={7}
+        gap={{ base: 2, md: 7 }}
         overflow="hidden"
         paddingLeft={1}
       >

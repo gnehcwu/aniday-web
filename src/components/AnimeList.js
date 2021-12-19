@@ -15,7 +15,14 @@ export default function AnimeList() {
       <Spinner color="pink.400" position="absolute" left="50%" transform="translateX(-50%)" />
     </Box>
   ) : (
-    <Grid templateColumns="repeat(auto-fit, minmax(min(150px, 100%), 1fr))" rowGap={9} columnGap={7}>
+    <Grid
+      templateColumns={{
+        base: 'repeat(auto-fit, minmax(min(90px, 100%), 1fr))',
+        md: 'repeat(auto-fit, minmax(min(150px, 100%), 1fr))',
+      }}
+      rowGap={9}
+      columnGap={7}
+    >
       {getFilteredData().map(({ id, airingAt, episode, media: anime }) => (
         <AnimeCard key={id} anime={anime} episode={episode} airingAt={airingAt} />
       ))}

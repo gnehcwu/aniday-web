@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Flex, Text, Tooltip, useBreakpointValue } from '@chakra-ui/react';
 import { startOfWeek, addDays, getUnixTime } from 'date-fns';
 import { STORE_ACTIONS, useStore, useStoreDispatch } from '../states/useStore';
 
@@ -19,8 +19,9 @@ function getDayTimeRageMap(today) {
 export default function DaySelector() {
   const dispatch = useStoreDispatch();
   const { today, startTimestamp } = useStore();
-
   const dayTimeRangeMap = getDayTimeRageMap(today);
+
+  const selectorSize = useBreakpointValue({ base: 'xs', md: 'md' });
 
   // Dispatch action to update selected time range
   const pickDay = (startTimestamp, endTimestamp) => {
@@ -34,14 +35,15 @@ export default function DaySelector() {
       direction={{ base: 'row', md: 'column' }}
       justifyContent="center"
       flexWrap="wrap"
-      gap={{ base: '2', md: '7' }}
+      gap={{ base: '1', md: '7' }}
+      paddingTop={{ base: 1, md: 0 }}
     >
       {dayTimeRangeMap.map(([day, start, end]) => (
         <Tooltip key={day} label={`Select ${day}`} placement="left">
           <Button
             fontWeight="500"
             letterSpacing="1px"
-            size="md"
+            size={selectorSize}
             _hover={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
             _active={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
             isActive={isActive(start)}

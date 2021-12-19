@@ -12,7 +12,7 @@ export default function AnimeCard({ anime, episode }) {
     <Card borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="lg" whileHover={{ scale: 1.05 }}>
       <Image
         width="100%"
-        height="175px"
+        height={{ base: '135px', md: '175px' }}
         src={anime.coverImage.extraLarge}
         objectFit="cover"
         objectPosition="center"
