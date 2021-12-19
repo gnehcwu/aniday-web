@@ -5,6 +5,8 @@ const SETTING_ACTIONS = {
   UPDATE_LANG: 'update-lang',
 };
 
+const langs = ['Native', 'English'];
+
 function reducer(state, action) {
   switch (action.type) {
     case SETTING_ACTIONS.UPDATE_THEME:
@@ -17,8 +19,7 @@ function reducer(state, action) {
 }
 
 const [SettingProvider, useSetting, useSettingDispatch] = makeStore(reducer, {
-  isDarkMode: true,
   lang: 'native',
 });
 
-export { SETTING_ACTIONS, SettingProvider, useSetting, useSettingDispatch };
+export { langs, SETTING_ACTIONS, SettingProvider, useSetting, useSettingDispatch };

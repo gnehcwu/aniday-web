@@ -3,14 +3,18 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { SettingProvider } from './states/useSetting';
 import { StoreProvider } from './states/useStore';
-import ThemeWrapper from './components/ThemeWrapper';
-import './index.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import '@fontsource/short-stack';
+import theme from './theme';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
     <SettingProvider>
       <StoreProvider>
-        <ThemeWrapper />
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
       </StoreProvider>
     </SettingProvider>
   </React.StrictMode>,
