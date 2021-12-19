@@ -21,7 +21,8 @@ export default function DaySelector() {
   const { today, startTimestamp } = useStore();
   const dayTimeRangeMap = getDayTimeRageMap(today);
 
-  const selectorSize = useBreakpointValue({ base: 'xs', md: 'md' });
+  const selectorSize = useBreakpointValue({ base: 'sm', md: 'md' });
+  const isOnSmallScreen = useBreakpointValue({ base: true, md: false });
 
   // Dispatch action to update selected time range
   const pickDay = (startTimestamp, endTimestamp) => {
@@ -35,7 +36,7 @@ export default function DaySelector() {
       direction={{ base: 'row', md: 'column' }}
       justifyContent="center"
       flexWrap="wrap"
-      gap={{ base: '1', md: '7' }}
+      gap={{ base: '2', md: '7' }}
       paddingTop={{ base: 1, md: 0 }}
     >
       {dayTimeRangeMap.map(([day, start, end]) => (
@@ -49,7 +50,7 @@ export default function DaySelector() {
             isActive={isActive(start)}
             onClick={() => pickDay(start, end)}
           >
-            <Text fontWeight="bold">{day.substr(0, 3)}</Text>
+            <Text fontWeight="bold">{isOnSmallScreen ? day.substr(0, 1) : day.substr(0, 3)}</Text>
           </Button>
         </Tooltip>
       ))}

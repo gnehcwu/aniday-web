@@ -7,12 +7,14 @@ import { useColorMode } from '@chakra-ui/react';
 export default function App() {
   const { colorMode } = useColorMode();
   const contentGap = useBreakpointValue({ base: '2', md: '9' });
+  const containerHeight = useBreakpointValue({ base: 'auto', md: '100vh' });
 
   return (
     <Container
-      maxW="1048px"
-      height="100vh"
-      py={{ base: 4, md: 12 }}
+      maxW="1280px"
+      height={containerHeight}
+      minHeight="100vh"
+      py={{ base: 2, md: 12 }}
       overflow="hidden"
       sx={{ display: 'grid', gridTemplateRows: 'min-content 1fr', gap: contentGap }}
     >
@@ -28,7 +30,7 @@ export default function App() {
         <GridItem alignSelf="start" py={{ base: 0, md: 2 }} justifySelf="center">
           <DaySelector />
         </GridItem>
-        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={5} py={2}>
+        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={{ base: 1, md: 5 }} py={2}>
           <AnimeList />
         </GridItem>
       </Grid>
