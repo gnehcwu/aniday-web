@@ -23,6 +23,8 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   const modalLayout = useBreakpointValue({ base: '125px 1fr', md: '200px 1fr' });
   const gap = useBreakpointValue({ base: '4', md: '7' });
+  const modalSize = useBreakpointValue({ base: 'md', md: '2xl' });
+  const tagSize = useBreakpointValue({ base: 'sm', md: 'md' });
 
   if (!anime) return null;
 
@@ -30,7 +32,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={{base: 'lg', md: '2xl'}} scrollBehavior="inside">
+      <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={modalSize} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader py={4} />
@@ -44,13 +46,13 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               objectPosition="center"
               borderRadius="lg"
             />
-            <Flex direction="column" gap={3} alignItems="flex-start">
-              <Text fontSize="2xl" fontWeight="700">
+            <Flex direction="column" gap={{ base: 2, md: 3 }} alignItems="flex-start">
+              <Text fontSize={{ base: 'lg', md: '2xl' }} fontWeight="700">
                 {animeTitle}
               </Text>
-              <Flex gap={2}>
-                {anime.genres.slice(0, 3).map(tag => (
-                  <Tag key={tag} size="md" label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
+              <Flex gap={{ base: 1, md: 2 }}>
+                {anime.genres.slice(0, 2).map(tag => (
+                  <Tag key={tag} size={tagSize} label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
                     {tag}
                   </Tag>
                 ))}
@@ -64,7 +66,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               />
               <Text
                 dangerouslySetInnerHTML={{ __html: anime.description || animeTitle }}
-                noOfLines={{ base: 4, md: 6 }}
+                noOfLines={{ base: 3, md: 6 }}
                 overflowY="auto"
                 sx={{ colorScheme: colorMode === 'light' ? 'light' : 'dark' }}
               />
