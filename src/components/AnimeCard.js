@@ -28,7 +28,7 @@ export default function AnimeCard({ anime, episode, openAnime }) {
         objectFit="cover"
         objectPosition="center"
       />
-      <Flex px={{base: 1, md: 3}} py={{base: 2, md: 5}} direction="column" gap={2} alignContent="flex-start" alignItems="flex-start">
+      <Flex px={{base: 1, md: 3}} paddingTop={{base: 2, md: 4}} direction="column" gap={2} alignContent="flex-start" alignItems="flex-start">
         <Tag size="sm" bgGradient="linear(to-r, yellow.500, pink.400)" fontWeight="700">
           Ep {episode}
         </Tag>
