@@ -65,7 +65,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               />
               <Text
                 dangerouslySetInnerHTML={{ __html: anime.description || animeTitle }}
-                noOfLines={{ base: 2, md: 6 }}
+                noOfLines={{ base: 3, md: 6 }}
                 overflowY="auto"
                 sx={{ colorScheme: colorMode === 'light' ? 'light' : 'dark' }}
               />
