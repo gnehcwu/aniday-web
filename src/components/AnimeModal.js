@@ -21,7 +21,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
   const { lang } = useSetting();
   const { colorMode } = useColorMode();
 
-  const modalLayout = useBreakpointValue({ base: '1fr', md: '200px 1fr' });
+  const modalLayout = useBreakpointValue({ base: '125px 1fr', md: '200px 1fr' });
   const gap = useBreakpointValue({ base: '4', md: '7' });
 
   if (!anime) return null;
@@ -30,7 +30,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size="2xl" scrollBehavior="inside">
+      <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={{base: 'lg', md: '2xl'}} scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader py={4} />
@@ -64,7 +64,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               />
               <Text
                 dangerouslySetInnerHTML={{ __html: anime.description || animeTitle }}
-                noOfLines={{ base: 3, md: 6 }}
+                noOfLines={{ base: 4, md: 6 }}
                 overflowY="auto"
                 sx={{ colorScheme: colorMode === 'light' ? 'light' : 'dark' }}
               />
