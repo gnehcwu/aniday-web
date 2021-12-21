@@ -23,7 +23,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   const modalLayout = useBreakpointValue({ base: '125px 1fr', md: '200px 1fr' });
   const gap = useBreakpointValue({ base: '4', md: '7' });
-  const modalSize = useBreakpointValue({base: 'lg', md: '2xl'});
+  const modalSize = useBreakpointValue({ base: 'lg', md: '2xl' });
 
   if (!anime) return null;
 
