@@ -46,7 +46,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               borderRadius="lg"
             />
             <Flex direction="column" gap={{ base: 2, md: 3 }} alignItems="flex-start">
-              <Text fontSize="2xl" fontWeight="700">
+              <Text fontSize={{base: 'lg', md: '2xl'}} fontWeight="700">
                 {animeTitle}
               </Text>
               <Flex gap={{ base: 1, md: 2 }}>
