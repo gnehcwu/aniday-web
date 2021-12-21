@@ -49,7 +49,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               <Text fontSize="2xl" fontWeight="700">
                 {animeTitle}
               </Text>
-              <Flex gap={2}>
+              <Flex gap={{ base: 1, md: 2 }}>
                 {anime.genres.slice(0, 3).map(tag => (
                   <Tag key={tag} size="md" label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
                     {tag}
