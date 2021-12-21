@@ -23,14 +23,15 @@ export default function App() {
       </Box>
       <Grid
         templateColumns={{ base: '1fr', md: 'max-content 1fr' }}
-        gap={{ base: 2, md: 7 }}
+        templateRows={{ base: 'auto 1fr;', md: '1fr' }}
+        gap={{ base: 2, md: 10 }}
         overflow="hidden"
         paddingLeft={1}
       >
         <GridItem alignSelf="start" py={{ base: 0, md: 2 }} justifySelf="center">
           <DaySelector />
         </GridItem>
-        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={{ base: 1, md: 5 }} py={2}>
+        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={{ base: 1, md: 4 }} py={2}>
           <AnimeList />
         </GridItem>
       </Grid>

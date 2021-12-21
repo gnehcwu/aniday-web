@@ -23,7 +23,8 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   const modalLayout = useBreakpointValue({ base: '125px 1fr', md: '200px 1fr' });
   const gap = useBreakpointValue({ base: '4', md: '7' });
-  const modalSize = useBreakpointValue({ base: 'lg', md: '2xl' });
+  const modalSize = useBreakpointValue({ base: 'md', md: '2xl' });
+  const tagSize = useBreakpointValue({ base: 'sm', md: 'md' });
 
   if (!anime) return null;
 
@@ -46,12 +47,12 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               borderRadius="lg"
             />
             <Flex direction="column" gap={{ base: 2, md: 3 }} alignItems="flex-start">
-              <Text fontSize={{base: 'lg', md: '2xl'}} fontWeight="700">
+              <Text fontSize={{ base: 'lg', md: '2xl' }} fontWeight="700">
                 {animeTitle}
               </Text>
               <Flex gap={{ base: 1, md: 2 }}>
                 {anime.genres.slice(0, 2).map(tag => (
-                  <Tag key={tag} size="md" label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
+                  <Tag key={tag} size={tagSize} label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
                     {tag}
                   </Tag>
                 ))}
