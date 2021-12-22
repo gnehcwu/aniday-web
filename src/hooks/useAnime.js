@@ -11,7 +11,7 @@ function useAnimeList() {
       dispatch({ type: STORE_ACTIONS.UPDATE_LOADING, payload: true });
       try {
         const result = await fetchAiring(startTimestamp, endTimestamp);
-        const data = result.data.Page['airingSchedules'];
+        const data = result.data.Page['airingSchedules'].filter(item => item.media.isAdult === false);
         dispatch({ type: STORE_ACTIONS.UPDATE_AIRING, payload: [startTimestamp, data] });
       } catch (err) {
         dispatch({ type: STORE_ACTIONS.UPDATE_LOADING, payload: false });

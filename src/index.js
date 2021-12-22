@@ -10,13 +10,13 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SettingProvider>
-      <StoreProvider>
-        <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme}>
+      <SettingProvider>
+        <StoreProvider>
           <App />
-        </ChakraProvider>
-      </StoreProvider>
-    </SettingProvider>
+        </StoreProvider>
+      </SettingProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

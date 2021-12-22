@@ -10,6 +10,7 @@ import {
   IconButton,
   Tooltip,
   useBreakpointValue,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, AtSignIcon } from '@chakra-ui/icons';
 import { ReactComponent as Logo } from '../logo.svg';
@@ -38,7 +39,7 @@ export default function Nav() {
         <Text
           fontSize={{ base: 'xs', md: 'lg' }}
           fontWeight="700"
-          bgGradient="linear(to-r, yellow.500, pink.400)"
+          bgGradient="var(--chakra-colors-bg-gradient)"
           bgClip="text"
         >
           Anime Calendar
@@ -48,9 +49,9 @@ export default function Nav() {
         <Tooltip label={`Toggle theme to ${colorMode === 'light' ? 'dark' : 'light'}`}>
           <IconButton
             arial-label="Toggle theme"
-            _hover={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
-            _active={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
-            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+            _hover={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
+            _active={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
+            icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
             onClick={toggleColorMode}
           />
         </Tooltip>
@@ -60,8 +61,8 @@ export default function Nav() {
               as={IconButton}
               arial-label="Toggle language"
               icon={<AtSignIcon />}
-              _hover={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
-              _active={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
+              _hover={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
+              _active={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
             />
           </Tooltip>
           <MenuList>

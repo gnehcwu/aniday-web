@@ -1,6 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+  colors: {
+    bg: {
+      gradient: 'linear-gradient(to right, #D69E2E, #ED64A6)',
+    },
+  },
   config: {
     initialColorMode: 'dark',
   },

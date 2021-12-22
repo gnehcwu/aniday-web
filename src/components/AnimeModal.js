@@ -28,7 +28,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
 
   if (!anime) return null;
 
-  const animeTitle = anime.title[lang] || anime.title['native'];
+  const animeTitle = anime.title[lang] || anime.title['romaji'];
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
             <Image
               width="100%"
               maxH={{ base: '275px', md: 'none' }}
-              src={anime.coverImage.extraLarge}
+              src={anime.coverImage.large}
               objectFit="cover"
               objectPosition="center"
               borderRadius="lg"
@@ -52,23 +52,28 @@ export default function AnieMeModal({ isOpen, anime, onClose }) {
               </Text>
               <Flex gap={{ base: 1, md: 2 }}>
                 {anime.genres.slice(0, 2).map(tag => (
-                  <Tag key={tag} size={tagSize} label={tag} bgGradient="linear(to-r, yellow.500, pink.400)">
+                  <Tag key={tag} size={tagSize} label={tag} bgGradient="var(--chakra-colors-bg-gradient)">
                     {tag}
                   </Tag>
                 ))}
               </Flex>
               <IconButton
                 arial-label="Toggle theme"
-                _hover={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
-                _active={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
+                _hover={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
+                _active={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
                 icon={<ExternalLinkIcon />}
-                onClick={() => window.open(anime.siteUrl, '_blank')}
+                onClick={() =>
+                  window.open(
+                    (anime.externalLinks[0] && anime.externalLinks[0].url) || anime.siteUrl,
+                    '_blank'
+                  )
+                }
               />
               <Text
                 dangerouslySetInnerHTML={{ __html: anime.description || animeTitle }}
                 noOfLines={{ base: 3, md: 6 }}
                 overflowY="auto"
-                sx={{ colorScheme: colorMode === 'light' ? 'light' : 'dark' }}
+                sx={{ colorScheme: colorMode }}
               />
             </Flex>
           </ModalBody>

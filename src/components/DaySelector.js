@@ -45,8 +45,8 @@ export default function DaySelector() {
             fontWeight="500"
             letterSpacing="1px"
             size={selectorSize}
-            _hover={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
-            _active={{ bgGradient: 'linear(to-r, yellow.500, pink.400)' }}
+            _hover={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
+            _active={{ bgGradient: 'var(--chakra-colors-bg-gradient)' }}
             isActive={isActive(start)}
             onClick={() => pickDay(start, end)}
           >

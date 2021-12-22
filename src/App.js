@@ -16,7 +16,11 @@ export default function App() {
       minHeight="100vh"
       py={{ base: 2, md: 12 }}
       overflow="hidden"
-      sx={{ display: 'grid', gridTemplateRows: 'min-content 1fr', gap: contentGap }}
+      sx={{
+        display: 'grid',
+        gridTemplateRows: 'min-content 1fr',
+        gap: contentGap,
+      }}
     >
       <Box paddingLeft={{ base: 0, md: 1 }}>
         <Nav />

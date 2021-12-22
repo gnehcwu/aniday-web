@@ -6,7 +6,7 @@ const Card = motion(Box);
 
 export default function AnimeCard({ anime, episode, openAnime }) {
   const { lang } = useSetting();
-  const animeTitle = anime.title[lang] || anime.title['native'];
+  const animeTitle = anime.title[lang] || anime.title['romaji'];
 
   const handleClick = () => {
     openAnime(anime);
@@ -24,7 +24,7 @@ export default function AnimeCard({ anime, episode, openAnime }) {
       <Image
         width="100%"
         height={{ base: '125px', md: '175px' }}
-        src={anime.coverImage.extraLarge}
+        src={anime.coverImage.large}
         objectFit="cover"
         objectPosition="center"
       />
@@ -37,7 +37,7 @@ export default function AnimeCard({ anime, episode, openAnime }) {
         alignContent="flex-start"
         alignItems="flex-start"
       >
-        <Tag size="sm" bgGradient="linear(to-r, yellow.500, pink.400)" fontWeight="700">
+        <Tag size="sm" bgGradient="var(--chakra-colors-bg-gradient)" fontWeight="700">
           Ep {episode}
         </Tag>
         <Tooltip label={animeTitle}>
