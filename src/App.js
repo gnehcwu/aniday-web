@@ -1,20 +1,50 @@
-import { Container, Grid, GridItem, Box, useBreakpointValue } from '@chakra-ui/react';
+import { Container, Grid, GridItem, Box, useBreakpointValue, useColorMode, useTheme, useColorModeValue } from '@chakra-ui/react';
 import Nav from './components/Nav';
 import DaySelector from './components/DaySelector';
 import AnimeList from './components/AnimeList';
-import { useColorMode } from '@chakra-ui/react';
 
 export default function App() {
   const { colorMode } = useColorMode();
   const contentGap = useBreakpointValue({ base: '2', md: '9' });
-  const containerHeight = useBreakpointValue({ base: 'auto', md: '100vh' });
+  const theme = useTheme();
+  console.log(theme);
+
+  const selectorStyle = useBreakpointValue({
+    base: {
+      overflowX: 'auto',
+      position: 'fixed',
+      top: '50%',
+      right: '10px',
+      scrollBehavior: 'smooth',
+      background: useColorModeValue(theme.colors.blackAlpha[400], theme.colors.blackAlpha[500]),
+      padding: '16px',
+      paddingLeft: '8px',
+      paddingRight: '8px',
+      borderTopLeftRadius: '16px',
+      borderTopRightRadius: '16px',
+      borderBottomLeftRadius: '16px',
+      borderBottomRightRadius: '16px',
+      transform: 'translateY(-50%)',
+      zIndex: '999',
+    }, md: {}
+  });
+
+  const navStyle = useBreakpointValue({
+    base: {
+      position: 'fixed',
+      background: useColorModeValue('white', 'var(--chakra-colors-gray-800)'),
+      paddingBlock: '8px',
+      zIndex: 1,
+      width: 'calc(100vw - 32px)',
+      top: 0,
+    }, md: {}
+  });
 
   return (
     <Container
       maxW="1280px"
-      height={containerHeight}
-      minHeight="100vh"
-      py={{ base: 2, md: 12 }}
+      maxHeight={{base:'none', md: '100vh'}}
+      py={{ base: 4, md: 12 }}
       overflow="hidden"
       sx={{
         display: 'grid',
@@ -22,20 +52,20 @@ export default function App() {
         gap: contentGap,
       }}
     >
-      <Box paddingLeft={{ base: 0, md: 1 }}>
+      <Box paddingLeft={{ base: 0, md: 1 }} sx={navStyle}>
         <Nav />
       </Box>
       <Grid
         templateColumns={{ base: '1fr', md: 'max-content 1fr' }}
         templateRows={{ base: 'auto 1fr;', md: '1fr' }}
-        gap={{ base: 2, md: 10 }}
+        gap={{ base: 3, md: 10 }}
         overflow="hidden"
-        paddingLeft={1}
+        paddingLeft={{ base: 0, md: 1 }}
       >
-        <GridItem alignSelf="start" py={{ base: 0, md: 2 }} justifySelf="center">
+        <GridItem alignSelf="start" py={{ base: 0, md: 2 }} justifySelf="center" sx={selectorStyle}>
           <DaySelector />
         </GridItem>
-        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={{ base: 1, md: 4 }} py={2}>
+        <GridItem overflowY="auto" sx={{ colorScheme: colorMode }} px={{ base: 0, md: 4 }} py={{ base: 2, md: 2 }} pt={{ base: '72px', md: 2 }}>
           <AnimeList />
         </GridItem>
       </Grid>

@@ -32,14 +32,14 @@ export default function AnimeList() {
     <>
       <Grid
         templateColumns={{
-          base: 'repeat(auto-fit, minmax(min(90px, 100%), 1fr))',
-          md: 'repeat(auto-fit, minmax(min(165px, 100%), 1fr))',
+          base: '1fr 1fr',
+          md: 'repeat(auto-fit, minmax(min(195px, 100%), 1fr))',
         }}
         rowGap={{ base: 4, md: 9 }}
         columnGap={{ base: 4, md: 7 }}
       >
-        {getFilteredData().map(({ id, airingAt, episode, media: anime }) => (
-          <AnimeCard key={id} anime={anime} episode={episode} airingAt={airingAt} openAnime={openAnime} />
+        {getFilteredData().map(({ id, airingAt, episode, media: anime }, index) => (
+          <AnimeCard key={index} anime={anime} episode={episode} airingAt={airingAt} openAnime={openAnime} />
         ))}
       </Grid>
       <AnieMeModal isOpen={isOpen} onClose={onClose} anime={selectedAnime} />

@@ -7,7 +7,7 @@ const theme = extendTheme({
     },
   },
   config: {
-    initialColorMode: 'dark',
+    initialColorMode: 'white',
   },
   styles: {
     global: {

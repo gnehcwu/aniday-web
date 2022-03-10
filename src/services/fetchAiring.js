@@ -27,6 +27,7 @@ const query = `query($weekStart: Int, $weekEnd: Int, $page: Int) {
         isAdult
         coverImage {
           large
+          medium
           color
         }
         trailer {

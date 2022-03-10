@@ -1,4 +1,4 @@
-import { Box, Image, Tag, Text, Flex, Tooltip } from '@chakra-ui/react';
+import { Box, Image, Tag, Text, Flex, Tooltip, useBreakpointValue } from '@chakra-ui/react';
 import { useSetting } from '../states/useSetting';
 import { motion } from 'framer-motion';
 
@@ -7,6 +7,7 @@ const Card = motion(Box);
 export default function AnimeCard({ anime, episode, openAnime }) {
   const { lang } = useSetting();
   const animeTitle = anime.title[lang] || anime.title['romaji'];
+  const aspectRatio = useBreakpointValue({ base: '1 / 1.1', md: '1 / 1.1' });
 
   const handleClick = () => {
     openAnime(anime);
@@ -17,23 +18,24 @@ export default function AnimeCard({ anime, episode, openAnime }) {
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      boxShadow="sm"
-      whileHover={{ scale: 1.05 }}
+      boxShadow="md"
+      whileHover={{ scale: 1.07 }}
       onClick={handleClick}
     >
       <Image
         width="100%"
-        height={{ base: '125px', md: '175px' }}
         src={anime.coverImage.large}
         objectFit="cover"
-        objectPosition="center"
+        sx={{
+          aspectRatio: aspectRatio,
+        }}
       />
       <Flex
-        px={{ base: 1, md: 3 }}
-        paddingTop={{ base: 2, md: 4 }}
-        paddingBottom={{ base: 1, md: 2 }}
+        px={{ base: 3, md: 3 }}
+        paddingTop={{ base: 3, md: 4 }}
+        paddingBottom={{ base: 3, md: 2 }}
         direction="column"
-        gap={2}
+        gap={{base: 3, md: 2}}
         alignContent="flex-start"
         alignItems="flex-start"
       >
